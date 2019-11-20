@@ -1,42 +1,180 @@
 [
   {
     "type": "get",
-    "url": "/address/get_by_id",
-    "title": "Get address by ID",
-    "name": "addressGetByID",
+    "url": "/address/district",
+    "title": "Get List District",
+    "version": "0.1.0",
+    "name": "GetListDistrict",
+    "group": "Address",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "city_id",
+            "description": "<p>City ID Of District.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"city_id\": \"5dc0cfc6bf871b3a3c629703\"\n}",
+          "type": "Int32"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List of Planning Category.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n   {\n        create_uid: \"5d679819325ab70ab0157ce5\",\n        create_date: \"2019-11-05T01:28:42.327Z\",\n        write_uid: \"5d679819325ab70ab0157ce5\",\n        write_date: \"2019-11-05T01:28:42.327Z\",\n        company_id: \"ROOT\",\n        status: true,\n        delete_id: null,\n        _id: \"5dc0d055ade2533578818b79\",\n        reaction: [ ],\n        code: \"4607\",\n        main_code: \"07\",\n        name: \"Huyện A Lưới\",\n        type: \"Huyện\",\n        province_id: \"5dc0cfc6bf871b3a3c629703\",\n        points: {\n            type: \"Point\",\n            coordinates: [\n                107.298172561,\n                16.2359891944\n            ]\n        },\n        __v: 0\n   },\n   {...},\n   {...},\n   {...}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./address.js",
+    "groupTitle": "Address"
+  },
+  {
+    "type": "get",
+    "url": "/address/province",
+    "title": "Get List Province",
+    "version": "0.1.0",
+    "name": "GetListProvince",
     "group": "Address",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Json",
+            "type": "Object",
             "optional": false,
-            "field": "list_Address",
-            "description": "<p>List of address and each element in list is an Object</p>"
+            "field": "list",
+            "description": "<p>List of Province.</p>"
           }
         ]
       },
       "examples": [
         {
-          "title": "Example data on success:",
-          "content": "{\n    _id: \"2\",\n    create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n    create_date: \"2019-08-09 17:35:26.881\",\n    write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n    write_date: \"2019-08-09 17:35:26.881\",\n    company_id: \"ROOT\",\n    status: \"0\",\n    delete_id: \"\",\n    address_name: \"An Giang\",\n    type: \"C\",\n    parent_id: \"0\",\n    country_id: \"243.0\",\n    points: {\n        type: \"Point\",\n        coordinates: [\n            105.37450409,\n            10.24603653\n        ]\n    },\n    polygon: {\n        _id: \"3\",\n        create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        create_date: \"2019-08-09 17:41:38.812\",\n        write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        write_date: \"2019-08-09 17:41:38.812\", \n        company_id: \"ROOT\",\n        status: \"0\",\n        delete_id: \"\",\n        name: \"An Giang\",\n        type: \"C\",\n        rel_id: \"2\",\n        polygons: {\n            type: \"Polygon\",\n            coordinates: [\n                []\n            ]\n        }\n    }\n}",
+          "title": "Success-Response:",
+          "content": "[\n   {\n        create_uid: \"5d679819325ab70ab0157ce5\",\n        create_date: \"2019-11-05T01:26:10.350Z\",\n        write_uid: \"5d679819325ab70ab0157ce5\",\n        write_date: \"2019-11-05T01:26:10.350Z\",\n        company_id: \"ROOT\",\n        status: true,\n        delete_id: null,\n        _id: \"5dc0cfc5bf871b3a3c6296b9\",\n        reaction: [ ],\n        country_id: \"243\",\n        code: \"92\",\n        name: \"Thành phố Cần Thơ\",\n        type: \"Thành phố\",\n        __v: 0,\n        points: {\n            type: \"Point\",\n            coordinates: [\n                105.53032391,\n                10.1145177108\n            ]\n        }\n   },\n   {...},\n   {...},\n   {...}\n]",
           "type": "json"
         }
       ]
     },
+    "filename": "./address.js",
+    "groupTitle": "Address"
+  },
+  {
+    "type": "get",
+    "url": "/address/ward",
+    "title": "Get List Ward",
+    "version": "0.1.0",
+    "name": "GetListWard",
+    "group": "Address",
     "parameter": {
       "fields": {
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "ID",
+            "type": "ObjectID",
             "optional": false,
-            "field": "addressID",
-            "description": "<p>ID of address</p>"
+            "field": "province_id",
+            "description": "<p>District ID Of Ward.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"province_id\": \"5dc0d056ade2533578818d7d\"\n}",
+          "type": "Int32"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List of Planning Category.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n   {\n        create_uid: \"5d679819325ab70ab0157ce5\",\n        create_date: \"2019-11-06T03:00:21.913Z\",\n        write_uid: \"5d679819325ab70ab0157ce5\",\n        write_date: \"2019-11-06T03:00:21.913Z\",\n        company_id: \"ROOT\",\n        status: true,\n        delete_id: null,\n        _id: \"5dc237a3d508de3c4c58801e\",\n        reaction: [ ],\n        code: \"240600\",\n        name: \"Trung tâm huấn luyện Cấm Sơn\",\n        type: \"Trung tâm huấn luyện\",\n        district_id: \"5dc0d056ade2533578818d7d\",\n        points: null,\n        __v: 0\n   },\n   {...},\n   {...},\n   {...}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./address.js",
+    "groupTitle": "Address"
+  },
+  {
+    "type": "get",
+    "url": "/address/get-location",
+    "title": "Get Location",
+    "version": "0.1.0",
+    "name": "GetLocation",
+    "group": "Address",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "ward",
+            "description": "<p>Ward ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"ward\": \"5dc237a3d508de3c4c58801e\"\n}",
+          "type": "Int32"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List of Planning Category.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n     status: true,\n     data: {\n         _id: \"5dc237a3d508de3c4c58801e\",\n         district: {\n             _id: \"5dc0d056ade2533578818d7d\",\n             code: \"2406\",\n             name: \"Huyện Lục Ngạn\"\n         },\n         province: {\n             _id: \"5dc0cfc6bf871b3a3c6296c1\",\n             code: \"24\",\n             name: \"Tỉnh Bắc Giang\"\n         },\n         ward: {\n             _id: \"5dc237a3d508de3c4c58801e\",\n             name: \"Trung tâm huấn luyện Cấm Sơn\",\n             code: \"240600\"\n         }\n     }\n}",
+          "type": "json"
+        }
+      ]
     },
     "error": {
       "fields": {
@@ -44,15 +182,386 @@
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "IDEmptyError",
-            "description": "<p>ID was empty.</p>"
+            "field": "AddressLenght",
+            "description": "<p>The <code>length</code> of the address was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không tìm thấy địa chỉ\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
     },
-    "version": "0.0.0",
     "filename": "./address.js",
     "groupTitle": "Address"
+  },
+  {
+    "type": "post",
+    "url": "/ask/add-ask",
+    "title": "Add New Ask",
+    "version": "0.1.0",
+    "name": "AddNewAsk",
+    "group": "Ask",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Ask Status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "delete_id",
+            "description": "<p>Ask Delete ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Ask Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>Ask Category ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Ask Content.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url_name",
+            "description": "<p>Ask URL Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "sequence",
+            "description": "<p>Ask Sequence.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "asset_name",
+            "description": "<p>Asset Rename Ask Title.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "search",
+            "description": "<p>Search Result.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "reaction",
+            "description": "<p>Ask Reaction.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "approve",
+            "description": "<p>Approve Status.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": " {\n   \"status\": true,\n   \"data\": {\n      \"create_uid\": \"5d679819325ab70ab0157ce5\",\n      \"create_date\": \"2019-09-26T03:24:44.666Z\",\n      \"write_uid\": \"5d679819325ab70ab0157ce5\",\n      \"write_date\": \"2019-09-26T03:24:44.666Z\",\n      \"company_id\": \"ROOT\",\n      \"status\": true,\n      \"delete_id\": null,\n      \"url_name\": \"\",\n      \"sequence\": 0,\n      \"content\": \"\",\n      \"url_name\": \"\",\n      \"search\": \"tại sao danh sách fsbo của tôi không được đăng? tai sao danh sach fsbo cua toi khong duoc dang\",\n      \"asset_name\": \"\",\n      \"category_id\": \"5d7f313e2c69582d740b7afd\",\n      \"approve\": \"APPROVED\",\n      \"reaction\": [],\n      \"name\": \"Tại sao danh sách FSBO của tôi không được đăng?\",\n      \"__v\": 0\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AskName",
+            "description": "<p>The <code>name</code> of the question was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AskContent",
+            "description": "<p>The <code>content</code> of the question was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền tên câu hỏi\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền nội dung câu hỏi\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./ask.js",
+    "groupTitle": "Ask"
+  },
+  {
+    "type": "post",
+    "url": "/ask/add-category",
+    "title": "Add New Ask Category",
+    "version": "0.1.0",
+    "name": "AddNewAskCategory",
+    "group": "Ask_Category",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Ask Category Status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "delete_id",
+            "description": "<p>Ask Category Delete ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "parent_id",
+            "description": "<p>Ask Category Parent ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url_name",
+            "description": "<p>Ask Category URL Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Ask Category Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>Ask Category Code.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "sequence",
+            "description": "<p>Ask Category Sequence.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"status\": true,\n  \"data\": {\n      \"create_uid\": \"5d679819325ab70ab0157ce5\",\n      \"create_date\": \"2019-10-11T01:56:35.189Z\",\n      \"write_uid\": \"5d679819325ab70ab0157ce5\",\n      \"write_date\": \"2019-10-11T01:56:35.189Z\",\n      \"company_id\": \"ROOT\",\n      \"status\": true,\n      \"delete_id\": null,\n      \"parent_id\": null,\n      \"sequence\": 0,\n      \"name\": \"Pháp lý Bất Động Sản\",\n      \"url_name\": \"phap-ly-bat-dong-san\",\n      \"code\": \"ASK_LEGAL\",\n      \"__v\": 0\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./ask_category.js",
+    "groupTitle": "Ask_Category"
+  },
+  {
+    "type": "get",
+    "url": "/ask/get-ask-by-id",
+    "title": "Ask Category Detail",
+    "version": "0.1.0",
+    "name": "DetailAskCategory",
+    "group": "Ask_Category",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "askID",
+            "description": "<p>Ask Category ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n  \"askID\": \"5d9d32eca3addc584136d026\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "{\n     status: true,\n     data: {\n         _id: \"5d9d32eca3addc584136d026\",\n         delete_id: null,\n         asset_name: \"\",\n         sequence: 2,\n         url_name: \"\",\n         approve: \"APPROVED\",\n         name: \"Nhà tôi đang bán và cho thuê. Cả hai danh sách có thể xuất hiện trên Asset?\",\n         category_id: [\n             \"5d7f391dd76bcb1fe874247a\"\n         ],\n         __v: 0,\n         content: \"<h4><strong><em><u>Nội dung phản hồi: </u></em></strong></h4><p>Asset cho phép một danh sách hoạt động cho mỗi địa chỉ tài sản tại một thời điểm. Một ngôi nhà có thể được liệt kê để bán hoặc cho thuê, nhưng không phải cả hai cùng một lúc.</p>\",\n         reaction: [\n             \"5db2a202cf459e133c6349a9\"\n         ],\n         company_id: \"ROOT\",\n         create_date: \"2019-10-11T04:54:55.175Z\",\n         search: \"nhà tôi đang bán và cho thuê. cả hai danh sách có thể xuất hiện trên asset? nha toi dang ban va cho thue ca hai danh sach co the xuat hien tren asset \",\n         status: true,\n         write_date: \"2019-10-11T04:54:55.175Z\",\n         type: \"ask\"\n     }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "askID",
+            "description": "<p>The <code>askID</code> of the question was not correct.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Thiếu ID câu hỏi\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"true\"\n  \"message\": \"Không tìm thấy thông tin\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./ask.js",
+    "groupTitle": "Ask_Category"
+  },
+  {
+    "type": "get",
+    "url": "/ask/get-list-category",
+    "title": "Get List Ask Category",
+    "version": "0.1.0",
+    "name": "GetListAskCategory",
+    "group": "Ask_Category",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List of Recruit Category.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " {\n     status: true,\n     data: [\n         {\n             _id: \"5d7f38d6d76bcb1fe8742476\",\n             name: \"Quy định pháp luật về bất động sản - dự án\"\n         },\n         {\n             _id: \"5d7f38f3d76bcb1fe8742477\",\n             name: \"Pháp lý dự án, phê duyệt quy hoạch\"\n         },\n         {\n             _id: \"5d7f3902d76bcb1fe8742478\",\n             name: \"Biểu mẫu thực hiện thủ tục\"\n         },\n         {\n             _id: \"5d7f390dd76bcb1fe8742479\",\n             name: \"Hợp đồng mẫu về bất động sản, xây dựng\"\n         },\n         {\n             _id: \"5d7f391dd76bcb1fe874247a\",\n             name: \"Các vấn đề khác \"\n         }\n     ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./ask_category.js",
+    "groupTitle": "Ask_Category"
   },
   {
     "success": {
@@ -78,9 +587,799 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./doc/main.js",
-    "group": "C__Users_Windows_10_Desktop_APIDocuments_doc_main_js",
-    "groupTitle": "C__Users_Windows_10_Desktop_APIDocuments_doc_main_js",
+    "group": "C__Users_Windows_10_Documents_GitHub_APIDocuments_doc_main_js",
+    "groupTitle": "C__Users_Windows_10_Documents_GitHub_APIDocuments_doc_main_js",
     "name": ""
+  },
+  {
+    "type": "post",
+    "url": "/comment/add",
+    "title": "Add New Comment",
+    "version": "0.1.0",
+    "name": "AddNewComment",
+    "group": "Comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Comment Status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "delete_id",
+            "description": "<p>Comment Delete ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Comment Title.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "parent_id",
+            "description": "<p>Comment Parent ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "children",
+            "description": "<p>Comment Children.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "path",
+            "description": "<p>Comment Path.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "rel_id",
+            "description": "<p>Comment Rely Id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "rel_id_string",
+            "description": "<p>Comment Rely ID String.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"create_uid\" : ObjectId(\"5d9c378d3c34df0f449f5ac3\"),\n     \"create_date\" : ISODate(\"2019-10-11T01:57:44.524Z\"),\n     \"write_uid\" : ObjectId(\"5d679819325ab70ab0157ce5\"),\n     \"write_date\" : ISODate(\"2019-10-10T06:54:20.514Z\"),\n     \"company_id\" : \"ROOT\",\n     \"status\" : true,\n     \"delete_id\" : null,\n     \"reaction\" : [],\n     \"parent_id\" : ObjectId(\"5d9fe0e8ec7cab08bcbbab3d\"),\n     \"children\" : [],\n     \"rel_id\" : ObjectId(\"5d789b9da31d1828c0c10dd0\"),\n     \"title\" : \"dsd\",\n     \"__v\" : 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "reaction",
+            "description": "<p>Comment Reaction.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Title",
+            "description": "<p>The <code>title</code> of the comment was missed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"miss title\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./comment.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "get",
+    "url": "/comment/count_by_id",
+    "title": "Count Number Of Comment By ID",
+    "version": "0.1.0",
+    "name": "CountNumberOfComment",
+    "group": "Comment",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Int32",
+            "optional": false,
+            "field": "number",
+            "description": "<p>Number of Comment.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "{\n    status: true,\n    data: 2\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./comment.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "get",
+    "url": "/comment/list",
+    "title": "Get List Comment",
+    "version": "0.1.0",
+    "name": "GetListComment",
+    "group": "Comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "rel_id",
+            "description": "<p>Rel Comment ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "create_date",
+            "description": "<p>Comment Create Date.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "parent_id",
+            "description": "<p>Comment Parent ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "offset",
+            "description": "<p>Comment Offset.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Comment Limit.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"rel_id\": \"5d9d304fa3addc58413349bf\",\n  \"create_date\": \"2019-10-09T02:07:36.549Z\",\n  \"parent_id\": \"\",\n  \"offset\": \"1\",\n  \"limit\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List of Comment.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n    {\n        _id: \"5d9fddf606816b2e80f298e9\",\n        create_date: \"2019-10-11T01:42:14.168Z\",\n        reaction: [ ],\n        parent_id: null,\n        children: [ ],\n        rel_id: \"5d9d304fa3addc58413349bf\",\n        title: \"asdasd\"\n    },\n    {\n        _id: \"5d9d40e84942bc16f4f5f1a8\",\n        create_date: \"2019-10-09T02:07:36.549Z\",\n        reaction: [ ],\n        parent_id: null,\n        children: [ ],\n        rel_id: \"5d9d304fa3addc58413349bf\",\n        title: \"Van ban rat co ich\",\n        user: {\n            _id: \"5d9c3342cc1f7b3f4c8e79dd\",\n            first_name: \"Duong Cong \",\n            last_name: \"Vu\"\n        }\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Rel_ID",
+            "description": "<p>The <code>rel_id</code> of the comment was missed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Missing param rel_id\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./comment.js",
+    "groupTitle": "Comment"
+  },
+  {
+    "type": "post",
+    "url": "/contact/add-contact",
+    "title": "Add New Company",
+    "version": "0.1.0",
+    "name": "AddNewCompany",
+    "group": "Company",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Company Status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "delete_id",
+            "description": "<p>Company Delete ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Company Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "parent_id",
+            "description": "<p>Company Parent ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Company Description.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>Company Code.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "sequence",
+            "description": "<p>Company Sequence.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "icon",
+            "description": "<p>Company Icon.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "partner_id",
+            "description": "<p>Company Partner ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>Company Category ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>Company Keyword.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "points",
+            "description": "<p>Company Points.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"_id\" : ObjectId(\"5d9ae33a6c872036a4b2d47f\"),\n     \"name\" : \"Asset\",\n     \"category_id\" : null,\n     \"display_name\" : \"Assetvn\",\n     \"parent_id\" : null,\n     \"phone\" : \"213213\",\n     \"email\" : \"nguyenvu@asf.com\",\n     \"address\" : \"Vung tau\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "logo",
+            "description": "<p>Company Logo.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Name",
+            "description": "<p>The <code>name</code> of the company was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Address",
+            "description": "<p>The <code>address</code> of the company was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Phone",
+            "description": "<p>The <code>phone</code> of the company was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CountryCode",
+            "description": "<p>The <code>country_code</code> of the company was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền tên liên hệ\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền địa chỉ\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền số điện thoại\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền mã quốc gia\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./contact.js",
+    "groupTitle": "Company"
+  },
+  {
+    "type": "post",
+    "url": "/company/add-contact-category",
+    "title": "Add New Company Category",
+    "version": "0.1.0",
+    "name": "AddNewCompanyCategory",
+    "group": "Contact",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Company Category Status.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "delete_id",
+            "description": "<p>Company Category Delete ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "parent_id",
+            "description": "<p>Company Category Parent ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Company Category Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>Company Category Code.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<p>Company Category Description.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "sequence",
+            "description": "<p>Company Category Sequence.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "url_name",
+            "description": "<p>Company Category URL Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Company Category Type.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>Company Category Keyword.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"_id\" : ObjectId(\"5dafd01513818c28e0916314\"),\n    \"create_uid\" : ObjectId(\"5d679819325ab70ab0157ce5\"),\n    \"create_date\" : ISODate(\"2019-10-23T03:56:36.202Z\"),\n    \"write_uid\" : ObjectId(\"5d679819325ab70ab0157ce5\"),\n    \"write_date\" : ISODate(\"2019-10-23T03:56:36.202Z\"),\n    \"company_id\" : \"ROOT\",\n    \"status\" : true,\n    \"delete_id\" : null,\n    \"description\" : \"\",\n    \"keyword\" : \"\",\n    \"code\" : \"US\",\n    \"name\" : \"Cộng tác viên\",\n    \"__v\" : 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Name",
+            "description": "<p>The <code>name</code> of the company category was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserID",
+            "description": "<p>The <code>user_id</code> of the company category was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Result",
+            "description": "<p>The <code>result</code> of the company category was emptied.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Vui lòng điền tên danh mục\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không thể tìm thấy id của bạn\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không thể thêm danh mục\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./contact.js",
+    "groupTitle": "Contact"
+  },
+  {
+    "type": "get",
+    "url": "/contact/get-by-id",
+    "title": "Get List Contact By ID",
+    "version": "0.1.0",
+    "name": "GetListContactByID",
+    "group": "Contact",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Contact ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"id\": \"5db814c65d0a533960ad55ec\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Array",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List Suggestion</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    status: true,\n    data: {\n        country_code: 84,\n        category_id: [\n            \"5dafd01513818c28e0916318\"\n        ],\n        total_view: 0,\n        parent_id: null,\n        reaction: [ ],\n        _id: \"5db814c65d0a533960ad55ec\",\n        create_uid: \"5d679819325ab70ab0157ce5\",\n        create_date: \"2019-10-29T10:14:41.057Z\",\n        write_uid: \"5d679819325ab70ab0157ce5\",\n        write_date: \"2019-10-29T10:14:41.057Z\",\n        company_id: \"ROOT\",\n        status: true,\n        delete_id: null,\n        tel: \"\",\n        hotline: \"\",\n        email: \"info@becamex.com.vn\",\n        website: \"www.becamex.com.vn\",\n        address1: \"8 Đại Lộ Hùng Vương, Phường Hòa Phú, Thành phố Thủ Dầu Một, Tỉnh Bình Dương\",\n        address: \"\",\n        company_name: \"TỔNG CÔNG TY ĐẦU TƯ VÀ PHÁT TRIỂN CÔNG NGHIỆP - CTCP\",\n        display_name: \"BECAMEX IDC CORP\",\n        founded_year: 2010,\n        legal_representative: \"Phạm Ngọc Thuận\",\n        company_type: \"TNHH MTV\",\n        tax_code: \"3700145020\",\n        bank_account: \"\",\n        bank_name: \"\",\n        bank_branch: \"\",\n        description: \"\",\n        search: \"TỔNG CÔNG TY ĐẦU TƯ VÀ PHÁT TRIỂN CÔNG NGHIỆP - CTCP tong cong ty dau tu va phat trien cong nghiep ctcp BECAMEX IDC CORP becamex idc corp\",\n        points: {\n            type: \"Point\",\n            coordinates: [\n                0,\n                0\n            ]\n        },\n        icon: \"\",\n        logo: \"\",\n        code: \"IV.0001\",\n        __v: 0,\n        rating: [ ],\n        rating_avg: 0\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./contact.js",
+    "groupTitle": "Contact"
+  },
+  {
+    "type": "get",
+    "url": "/contact/suggestion",
+    "title": "Get List Suggestion",
+    "version": "0.1.0",
+    "name": "GetListSuggetion",
+    "group": "Contact",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>Contact Keyword</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"keyword\": \"ban\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Array",
+            "optional": false,
+            "field": "list",
+            "description": "<p>List Suggestion</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "[\n     {\n         country_code: 84,\n         category_id: [\n             \"5dafd01513818c28e0916318\"\n         ],\n         total_view: 0,\n         parent_id: null,\n         reaction: [ ],\n         _id: \"5db814c65d0a533960ad5654\",\n         create_uid: \"5d679819325ab70ab0157ce5\",\n         create_date: \"2019-10-29T10:14:41.057Z\",\n         write_uid: \"5d679819325ab70ab0157ce5\",\n         write_date: \"2019-10-29T10:14:41.057Z\",\n         company_id: \"ROOT\",\n         status: true,\n         delete_id: null,\n         tel: \"437912686\",\n         hotline: \"\",\n         email: \"\",\n         website: \"www.hanoi.gov.vn\",\n         address1: \"Số 159 Tô Hiệu, Phường Nghĩa Đô, Quận Cầu Giấy, Thành phố Hà Nội\",\n         address: \"\",\n         company_name: \"BAN QUẢN LÝ ĐẦU TƯ VÀ XÂY DỰNG KHU ĐÔ THỊ MỚI HÀ NỘI\",\n         display_name: \"BAN QUẢN LÝ ĐẦU TƯ VÀ XÂY DỰNG KHU ĐÔ THỊ MỚI HÀ NỘI\",\n         founded_year: null,\n         legal_representative: \"\",\n         company_type: \"DNĐP\",\n         tax_code: \"\",\n         bank_account: \"\",\n         bank_name: \"\",\n         bank_branch: \"\",\n         description: \"\",\n         search: \"BAN QUẢN LÝ ĐẦU TƯ VÀ XÂY DỰNG KHU ĐÔ THỊ MỚI HÀ NỘI ban quan ly dau tu va xay dung khu do thi moi ha noi BAN QUẢN LÝ ĐẦU TƯ VÀ XÂY DỰNG KHU ĐÔ THỊ MỚI HÀ NỘI ban quan ly dau tu va xay dung khu do thi moi ha noi\",\n         points: {\n             type: \"Point\",\n             coordinates: [\n                 0,\n                 0\n             ]\n         },\n         icon: \"\",\n         logo: \"\",\n         code: \"IV.0053\",\n         __v: 0,\n         rating: [ ],\n         rating_avg: 0\n     },\n     {...},\n     {...},\n     {...}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./contact.js",
+    "groupTitle": "Contact"
+  },
+  {
+    "type": "post",
+    "url": "/rating-company",
+    "title": "Rating Company",
+    "name": "Rating",
+    "group": "Contact",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>User Rating ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "rel_id",
+            "description": "<p>Rel ID Rating.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "rating",
+            "description": "<p>Rating Points.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "comment",
+            "description": "<p>Company Rating Comment.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"_id\" : ObjectId(\"5d9c3342cc1f7b3f4c8e79dd\"),\n     \"rel_id\" : ObjectId(\"5db814cb5d0a533960ad5d4e\"),\n     \"rating\" : [{rating_avg: \"4.5\"}],\n     \"comment\" : \"Hay qua\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "checkCompany",
+            "description": "<p>The <code>checkCompany</code> of the company was null.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "comment",
+            "description": "<p>&amp;rating The <code>comment or rating</code> of the company was null.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không tìm thấy công ty\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Thiếu thông tin\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./contact.js",
+    "groupTitle": "Contact"
   },
   {
     "type": "get",
@@ -293,7 +1592,7 @@
             "type": "String",
             "optional": false,
             "field": "planning_id",
-            "description": "<p>Planning ID {VN79.0000001}</p>"
+            "description": "<p>Planning ID. Example param: {VN79.0000001}</p>"
           }
         ]
       }
@@ -362,7 +1661,7 @@
             "type": "Number",
             "optional": false,
             "field": "limit",
-            "description": "<p>Limit.Example param {1000}</p>"
+            "description": "<p>Limit. Example param {1000}</p>"
           },
           {
             "group": "Parameter",

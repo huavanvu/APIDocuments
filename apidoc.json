@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "API Doctuments",
   "title": "APIDOC",
-  "url" : "http://27.74.250.96:8384/api/v1",
+  "url" : "http://192.168.1.240:9002/api/v1",
   "template": {
     "forceLanguage":"en"
   }
