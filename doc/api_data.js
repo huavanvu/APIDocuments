@@ -565,9 +565,9 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/auth/signup",
-    "title": "Signup Account",
-    "name": "Signup",
+    "url": "/auth/change-password",
+    "title": "Change Password",
+    "name": "ChangePassword",
     "group": "Authenticate",
     "version": "0.1.0",
     "parameter": {
@@ -575,18 +575,478 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "ObjectID",
+            "type": "ObjectId",
             "optional": false,
             "field": "_id",
             "description": "<p>User ID.</p>"
           },
           {
             "group": "Parameter",
-            "type": "ObjectID",
+            "type": "String",
             "optional": false,
-            "field": "idToken",
-            "description": "<p>User Token ID.</p>"
+            "field": "password",
+            "description": "<p>User Current Password.</p>"
           },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "newPassword",
+            "description": "<p>User New Password.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"_id\": \"5d9c3342cc1f7b3f4c8e79dd\",\n     \"password\": \"123456\",\n     \"newPassword\": \"Vu0902694200@\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"isLogin\": \"false\",\n  \"message\": \"Đăng nhập thành công!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "User",
+            "description": "<p>The <code>user</code> was not found.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "validPass",
+            "description": "<p>The <code>Current Password</code> was not correct.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"message\": \"Không tìm thấy tải khoản\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"message\": \"Mật khẩu không chính xác!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "get",
+    "url": "/auth/authenticate",
+    "title": "Check Authenticate",
+    "version": "0.1.0",
+    "name": "CheckAuthenticate",
+    "group": "Authenticate",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>Authenticate Status.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Authenticate Message.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\":true,\n  \"message\":\"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\":false,\n  \"message\":\"Không thể tìm thấy token\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\":false,\n  \"message\":\"Token không hợp lệ\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/check-idSignup",
+    "title": "Check Id Signup",
+    "name": "CheckIdSignup",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/check-info-signup",
+    "title": "Check Info Signup",
+    "name": "CheckInfoSignup",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "newUser",
+            "description": "<p>New User Info.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"newUser\": {\n        \"first_name\": \"Minh\",\n        \"last_name\": \"Hinh Hoc\",\n        \"email\": \"\",\n        \"referral_code\": \"AOZ505\",\n        \"country_code\": \"84\",\n        \"phone\": \"0792452548\",\n        \"inactive\": \"true\",\n        \"password\": hashedPassword\n     }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\",\n  \"data\": \"5de478a602949b06006a3dab\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/get-role-token",
+    "title": "Get Role Token",
+    "name": "CheckInfoSignup",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>User Id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "group_id",
+            "description": "<p>User Group Id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "company_id",
+            "description": "<p>User Company Id.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"id\": \"5d9c3342cc1f7b3f4c8e79dd\",\n     \"group_id\": \"5d9d94fe93d1b678bbe3568a\",\n     \"company_id\": \"5d9ae33a6c872036a4b2d47f\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"data\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQ5YzMzNDJjYzFmN2IzZjRjOGU3OWRkIiwiZ3JvdXBfaWQiOiI1ZDlkOTRmZTkzZDFiNjc4YmJlMzU2OGEiLCJjb21wYW55X2lkIjoiNWQ5YWUzM2E2Yzg3MjAzNmE0YjJkNDdmIiwiaWF0IjoxNTc1MzQxMzYxLCJleHAiOjMzMTExMzQxMzYxfQ.Zs02ntLptgAmf873qPe2aRiIbOH0ywtAc8-3OmmAimzR7Yn_UjnR7_S5F1L1RluuAAcZdqWOwlurp0fADoKRAg\"\n  \"status\": \"true\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/check-login",
+    "title": "Check Login",
+    "name": "CheckLogin",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>User ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "userRoles",
+            "description": "<p>User Role.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"_id\": \"5d9c3342cc1f7b3f4c8e79dd\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\",\n  \"isLogin\": \"true\",\n  \"message\": \"Đăng nhập thành công!\",\n  \"user\": {\n        avatar: \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASQA\"\n        first_name: \"Dương Công\"\n        id: \"5d9c3342cc1f7b3f4c8e79dd\"\n        last_name: \"Vủ\"\n        phone: \"0123123123\"\n        save_product: []\n        save_project: [\"5db80cfe44ab3a16f421599a\", \"5db80cfe44ab3a16f421599d\", \"5db80cfe44ab3a16f42159a0\",…]\n        userRoles: [{_id: \"5d9d991050d9ad34b4db2e8d\",…}, {_id: \"5d9d991050d9ad34b4db2e8d\",…},…]\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/get-role-active",
+    "title": "Get Role Active",
+    "name": "CheckRoleActive",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "roleToken",
+            "description": "<p>User Role Token.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"roleToken\": \"\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"data\": \"\"\n  \"status\": \"true\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/login",
+    "title": "Login",
+    "name": "Login",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User Phone Number.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>User Password.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"phone\" : \"0902694200\",\n     \"password\" : \"123456\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"isLogin\": \"true\",\n  \"status\": \"true\",\n  \"token\": \"\",\n  \"refreshToken\": \"\",\n  \"message\": \"Đăng nhập thành công!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "LoginValidation",
+            "description": "<p>The <code>Phone Number</code> of the user was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "CheckPhone",
+            "description": "<p>The <code>Phone Number</code> of the user was not correct.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "validPass",
+            "description": "<p>The <code>password</code> of user was not correct.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"isLogin\": \"false\"\n  \"message\": \"Số điện thoại nhập vào không đúng quy định!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"isLogin\": \"false\"\n  \"message\": \"Số điện thoại không chính xác!\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"isLogin\": \"false\"\n  \"message\": \"Mật khẩu không chính xác!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/signup",
+    "title": "Signup Account",
+    "name": "Login",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
           {
             "group": "Parameter",
             "type": "String",
@@ -614,6 +1074,13 @@ define({ "api": [
             "optional": false,
             "field": "phone",
             "description": "<p>User Phone Number.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>User Password.</p>"
           }
         ]
       },
@@ -629,7 +1096,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response-Data:",
-          "content": "[\n   HTTP/1.1 200 OK\n]",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\"\n  \"message\": \"Tạo tài khoản thành công.\"\n}",
           "type": "json"
         }
       ]
@@ -640,14 +1107,20 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "checkCompany",
-            "description": "<p>The <code>checkCompany</code> of the company was null.</p>"
+            "field": "checkToken",
+            "description": "<p>The <code>token</code> of the user was not correct.</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "comment",
-            "description": "<p>&amp;rating The <code>comment or rating</code> of the company was null.</p>"
+            "field": "_id",
+            "description": "<p>The <code>id</code> of user was null.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The <code>user</code> not found.</p>"
           },
           {
             "group": "Error 4xx",
@@ -660,17 +1133,339 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không tìm thấy công ty\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"idToken không chính xác\"\n}",
           "type": "json"
         },
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Thiếu thông tin\"\n}",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Thiếu id tài khoản\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Không tìm thấy tài khoản\"\n}",
           "type": "json"
         },
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/fb",
+    "title": "Login With Facebook",
+    "name": "LoginWithFacebook",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "accessToken",
+            "description": "<p>User Access Token.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userID",
+            "description": "<p>User ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email Of User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "first_name",
+            "description": "<p>User First Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "last_name",
+            "description": "<p>User Last Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>User Avatar.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"accessToken\": \"\",\n     \"userID\": \"1454497011366430\",\n     \"email\": \"huavanvu2812@gmail.com\",\n     \"first_name\": \"Hua\",\n     \"last_name\": \"Vu\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"isLogin\": \"true\",\n  \"status\": \"true\",\n  \"token\": \"\",\n  \"refreshToken\": \"\",\n  \"message\": \"Đăng nhập thành công!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "LoginValidation",
+            "description": "<p>The <code>Token</code> of the user was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Đăng nhập thất bại\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/google",
+    "title": "Login With Google",
+    "name": "LoginWithGoogle",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tokenId",
+            "description": "<p>User Token ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "profileObj",
+            "description": "<p>User Profile.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "googleId",
+            "description": "<p>User Google ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"tokenId\": \"\",\n     \"profileObj\": {\n        \"first_name\": \"Vũ\" ,\n        \"last_name\": \"Hứa Văn\",\n        \"avatar\": \"https://lh6.googleusercontent.com/-MGie-EqVE-U/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rd-xdMn3wj2HQHSCQn3uI49k37j_g/s96-c/photo.jpg\"\n      },\n     \"googleId\": \"5dddd76fb4be71385c5fc2a3\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"isLogin\": \"true\",\n  \"status\": \"true\",\n  \"token\": \"\",\n  \"refreshToken\": \"\",\n  \"message\": \"Đăng nhập thành công!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "LoginValidation",
+            "description": "<p>The <code>Token</code> of the user was not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Đăng nhập thất bại\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "get",
+    "url": "/auth/logout",
+    "title": "Logout",
+    "version": "0.1.0",
+    "name": "Logout",
+    "group": "Authenticate",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"isLogin\":false\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/recover-password",
+    "title": "Recover Password",
+    "name": "Recover_Password",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User Phone Number.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "idToken",
+            "description": "<p>User ID Token.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "newPassword",
+            "description": "<p>User New Password.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"phone\": \"0902694200\",\n     \"idToken\": \"\",\n     \"newPassword\": \"Vu0902694200\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"data\": \"\"\n  \"status\": \"true\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ChangePasswordValidate",
+            "description": "<p>The <code>newPassword</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\",\n  \"message\": \"Mật khẩu không hợp lệ\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
+    "url": "/auth/rfToken",
+    "title": "Refresh Token",
+    "name": "RefreshToken",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "refreshToken",
+            "description": "<p>User Refresh Token.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"refreshToken\": \"\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"JWT token\"\n}",
           "type": "json"
         }
       ]
@@ -702,8 +1497,8 @@ define({ "api": [
     "url": "",
     "version": "0.0.0",
     "filename": "./doc/main.js",
-    "group": "C__Users_Windows_10_Documents_GitHub_APIDocuments_doc_main_js",
-    "groupTitle": "C__Users_Windows_10_Documents_GitHub_APIDocuments_doc_main_js",
+    "group": "C:\\Users\\Windows 10\\Documents\\GitHub\\Asset-APIDocuments\\doc\\main.js",
+    "groupTitle": "C:\\Users\\Windows 10\\Documents\\GitHub\\Asset-APIDocuments\\doc\\main.js",
     "name": ""
   },
   {
@@ -1647,30 +2442,86 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/map/product_in_bound",
-    "title": "Get product in bound",
-    "name": "mapProductInBound",
+    "url": "/map/detect-district",
+    "title": "Detect District",
+    "name": "DectDistrict",
     "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Province ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "center",
+            "description": "<p>Center Point Of Bound.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"id\": 5dc0cfc6bf871b3a3c6296bd,\n  \"center\": 10.742838817797,106.65411282437982\n}",
+          "type": "json"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Json",
+            "type": "ObjectId",
             "optional": false,
-            "field": "listProduct",
-            "description": "<p>List of product and each element in list is an Object</p>"
+            "field": "district",
+            "description": "<p>District ID</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Example data on success:",
-          "content": "{\n    \"_id\": \"2\",\n    \"name\": \"NHÀ RIÊNG tại - Minh Khai-T230112\",\n    \"points\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            106.685826252423,\n            10.7575213428538\n        ]\n    },\n    \"polygons\": {\n        \"type\": \"Polygon\",\n        \"coordinates\": [\n            [\n                [\n                    106.6834805954495,\n                    10.76683717226183\n                ],\n                [ \n                    106.6833454781219,\n                    10.7669634924572\n                ],\n                [\n                    106.6833203719101,\n                    10.76693678156068\n                ],\n                [\n                    106.6833484693027,\n                    10.76691050720448\n                ],\n                [\n                    106.6833477356551,\n                    10.76690978618728\n                ], \n                [\n                    106.6834552149831,\n                    10.76681047124195\n                ],\n                [\n                    106.6834805954495,\n                    10.76683717226183\n                ]\n            ]\n        ]\n    },\n    \"product_type\": {\n        \"_id\": \"1\",\n        \"create_uid\": \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        \"create_date\": \"2019-07-27 13:09:00.176\",\n        \"write_uid\": \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        \"write_date\": \"2019-07-27 13:25:41.128\",\n        \"company_id\": \"ROOT\",\n        \"status\": \"0\",\n        \"delete_id\": \"\",\n        \"type_name\": \"Bán\",\n        \"type\": \"\",\n        \"parent_id\": \"\",\n        \"type_code\": \"1\",\n        \"description\": \"\"\n    }\n},",
+          "content": "{\n    \"status\": true,\n    \"data\": \"5dc0d057ade2533578818fa9\"\n}",
           "type": "json"
         }
       ]
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/detect-province",
+    "title": "Detect Province",
+    "name": "DectProvince",
+    "group": "Map",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1678,46 +2529,133 @@ define({ "api": [
             "group": "Parameter",
             "type": "Object",
             "optional": false,
-            "field": "bound",
-            "description": "<p>Bound. Example param: {[[106.70828170629568,10.760767733608878],[106.68137378545828,10.755244632384397]]}</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "limit",
-            "description": "<p>Limit product.Example param: {1000}</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "ID",
-            "optional": false,
-            "field": "address_id",
-            "description": "<p>Address ID. Example param: {311}</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Object",
-            "optional": false,
-            "field": "Data",
-            "description": "<p>of project. Example param: {&quot;_id&quot;:1,&quot;name&quot;:1,&quot;polygons&quot;:1,&quot;points&quot;:1,&quot;product_type&quot;:1}</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Object",
-            "optional": false,
-            "field": "Filter.",
-            "description": "<p>Example param: {&quot;type&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;]}</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "Type.",
-            "description": "<p>Example param: {marker}</p>"
+            "field": "center",
+            "description": "<p>Center Point Of Bound.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"center\": 10.74302064653004,106.65268857139291\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "province",
+            "description": "<p>Province ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n    \"status\": true,\n    \"data\": \"5dc0cfc6bf871b3a3c6296bd\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/detect-district",
+    "title": "Detect Ward",
+    "name": "DectWard",
+    "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "id",
+            "description": "<p>District ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "center",
+            "description": "<p>Center Point Of Bound.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"id\": 5dc0d057ade2533578818fa9,\n  \"center\": 106.65305737513246,10.742136536227594,106.65508378404321,10.743413290811999\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "ward",
+            "description": "<p>Ward ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n    \"status\": true,\n    \"data\": [\n        \"792004\",\n        \"792005\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "./map.js",
@@ -1726,55 +2664,76 @@ define({ "api": [
   {
     "type": "get",
     "url": "/map/get_by_address_id",
-    "title": "Get suggestion by address ID",
-    "name": "mapSuggestion",
+    "title": "Get Address By ID",
+    "name": "Get_Address_By_ID",
     "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "address_id",
+            "description": "<p>Address ID Product.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Limit Product Address.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>Address Code.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"address_id\": 5e2179a416b70e34ec8fbedf,\n  \"limit\": 500,\n  \"code\": \n}",
+          "type": "json"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Json",
+            "type": "Array",
             "optional": false,
             "field": "address",
             "description": "<p>Address</p>"
           },
           {
             "group": "Success 200",
-            "type": "Json",
+            "type": "Array",
             "optional": false,
-            "field": "ListProduct",
-            "description": "<p>List of product and each element in list is an Object</p>"
+            "field": "listProduct",
+            "description": "<p>List Product</p>"
           },
           {
             "group": "Success 200",
-            "type": "Json",
+            "type": "Array",
             "optional": false,
             "field": "listPolygonInside",
-            "description": "<p>List of polygon inside and each element in list is an Object</p>"
+            "description": "<p>List Polygon Inside</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Example data on success:",
-          "content": "{\n    address: [\n        {\n            _id: \"570\",\n            create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n            create_date: \"2019-08-09 17:35:27.883\",\n            write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n            write_date: \"2019-08-09 17:35:27.883\",\n            company_id: \"ROOT\",\n            status: \"0\",\n            delete_id: \"\",\n            address_name: \"Long An\",\n            type: \"C\",\n            parent_id: \"0\",\n            country_id: \"243.0\",\n            points: {\n            type: \"Point\",\n            coordinates: [\n                    106.08956909,\n                    10.52338314\n            ]\n        },\n    polygon: {\n                _id: \"571\",\n                create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n                create_date: \"2019-08-09 17:41:47.429\", \n                write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n                write_date: \"2019-08-09 17:41:47.429\",\n                company_id: \"ROOT\",\n                status: \"0\",\n                delete_id: \"\",\n                name: \"Long An\",\n                type: \"C\",\n                rel_id: \"570\",\n                polygons: {\n                    type: \"Polygon\",\n                    coordinates: [\n                                    []\n                    ]\n                }\n            }\n        }\n    ],\n    ListProduct: [],\n    listPolygonInside: [\n        {\n            _id: \"2663\",\n            create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n            create_date: \"2019-08-09 17:35:39.867\",\n            write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n            write_date: \"2019-08-09 17:35:39.867\",\n            company_id: \"ROOT\",\n            status: \"0\",\n            delete_id: \"\",\n            address_name: \"Bến Lức\",\n            type: \"D\",\n            parent_id: \"570\",\n            country_id: \"243.0\",\n            points: {\n                type: \"Point\",\n                coordinates: [\n                    106.55758667,\n                    10.62686348\n                ]\n            },\n            polygon: {\n                _id: \"2664\",\n                create_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n                create_date: \"2019-08-09 17:42:15.54\",\n                write_uid: \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n                write_date: \"2019-08-09 17:42:15.54\",\n                company_id: \"ROOT\",\n                status: \"0\",\n                delete_id: \"\",\n                name: \"Bến Lức\",\n                type: \"D\",\n                rel_id: \"2663\",\n                polygons: {\n                    type: \"Polygon\",\n                    coordinates: []\n                }\n            }\n        },\n        {}\n    ]\n}",
+          "content": "{\n    \"address\": [\n        {\n            \"_id\": \"5e2179a416b70e34ec8fbedf\",\n            \"company_id\": \"ROOT\",\n            \"status\": true,\n            \"reaction\": [],\n            \"polygon_id\": [\n                \"5dc100149bae9d046cfc645e\"\n            ],\n            \"address_name\": \"Thành phố Hồ Chí Minh\",\n            \"type\": \"C\",\n            \"parent_id\": null,\n            \"points\": {\n                \"type\": \"Point\",\n                \"coordinates\": [\n                    106.704809484,\n                    10.735237004\n                ]\n            },\n            \"code\": \"79\",\n            \"create_uid\": \"5d9c3342cc1f7b3f4c8e79dd\",\n            \"__v\": 0,\n            \"polygon\": [\n                {\n                    \"_id\": \"5dc100149bae9d046cfc645e\",\n                    \"create_uid\": \"5d679819325ab70ab0157ce5\",\n                    \"create_date\": \"2019-11-05T04:49:57.892Z\",\n                    \"write_uid\": \"5d679819325ab70ab0157ce5\",\n                    \"write_date\": \"2019-11-05T04:49:57.892Z\",\n                    \"company_id\": \"ROOT\",\n                    \"status\": true,\n                    \"delete_id\": null,\n                    \"rel_id\": \"5dc0cfc6bf871b3a3c6296bd\",\n                    \"code\": \"79\",\n                    \"collection_name\": \"res_province\",\n                    \"__v\": 0,\n                    \"polygons\": {\n                        \"type\": \"Polygon\",\n                        \"coordinates\": [\n                            [\n                                [\n                                    106.45614978800008,\n                                    11.160309933000034\n                                ],\n                                [...],\n                                [...]\n                            ]\n                        ]\n                    }\n                }\n            ]\n        }\n    ],\n    \"ListProduct\": [],\n    \"listPolygonInside\": [\n        {\n            \"_id\": \"5dc0d055ade2533578818bbb\",\n            \"code\": \"7901\",\n            \"parent_id\": \"5e2179a416b70e34ec8fbedf\",\n            \"polygon\": {\n                \"polygons\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                106.52880870100009,\n                                10.84750434400008\n                            ],\n                            [...],\n                            [...]\n                        ]\n                    ]\n                }\n            }\n        }\n    ]\n}",
           "type": "json"
         }
       ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "address_id",
-            "description": "<p>Address ID. Example param: {570}</p>"
-          }
-        ]
-      }
     },
     "error": {
       "fields": {
@@ -1782,11 +2741,406 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "NetWork",
-            "description": "<p>Fail to connect to server ! :((</p>"
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"fail to connect to server! :(( \"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/filter_agency",
+    "title": "Get Agency",
+    "name": "Get_Agency",
+    "group": "Map",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Oject",
+            "optional": false,
+            "field": "filterAgency",
+            "description": "<p>Filter Agency</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n    \"status\": true,\n    \"data\": [\n        {\n            \"_id\": \"5dba390006d6a109b15d60ef\",\n            \"create_uid\": \"5dbb9d3b65bb02ebb0ec7fb3\",\n            \"create_date\": \"2019-10-25T07:48:22.046Z\",\n            \"write_uid\": \"5d679819325ab70ab0157ce5\",\n            \"write_date\": \"2019-10-25T07:48:22.046Z\",\n            \"company_id\": \"ROOT\",\n            \"status\": true,\n            \"delete_id\": null,\n            \"working_area\": \"5dc0d057ade2533578818fab\",\n            \"description\": \"\",\n            \"sequence\": 0,\n            \"icon\": \"\",\n            \"logo\": \"\",\n            \"keyword\": \"\",\n            \"points\": null,\n            \"code\": \"DL10001\",\n            \"name\": \"Đại lý cấp 1 TPHCM (Quận 9)\",\n            \"category_id\": \"5dafd01513818c28e0916316\",\n            \"partner_id\": \"5db2abddd8ee0717dc269a1c\",\n            \"__v\": 0,\n            \"reaction\": [],\n            \"company_name\": \"Nguyễn Thái Bảo\",\n            \"display_name\": \"Nguyễn Thái Bảo\",\n            \"address\": \"216 Nguyễn Hoàng\",\n            \"address1\": \"216 Nguyễn Hoàng\",\n            \"type\": \"APPROVED\",\n            \"res_district\": {\n                \"_id\": \"5dc0d057ade2533578818fab\",\n                \"create_uid\": \"5d679819325ab70ab0157ce5\",\n                \"create_date\": \"2020-01-16T09:03:10.423Z\",\n                \"write_uid\": \"5d679819325ab70ab0157ce5\",\n                \"write_date\": \"2019-11-05T01:28:42.327Z\",\n                \"company_id\": \"ROOT\",\n                \"status\": true,\n                \"delete_id\": null,\n                \"reaction\": [],\n                \"code\": \"7921\",\n                \"main_code\": \"21\",\n                \"name\": \"Quận 9\",\n                \"type\": \"Quận\",\n                \"province_id\": \"5dc0cfc6bf871b3a3c6296bd\",\n                \"points\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        106.822899234,\n                        10.8232983009\n                    ]\n                },\n                \"__v\": 0\n            },\n            \"res_province\": {\n                \"_id\": \"5dc0cfc6bf871b3a3c6296bd\",\n                \"create_uid\": \"5d679819325ab70ab0157ce5\",\n                \"create_date\": \"2019-11-05T01:26:10.350Z\",\n                \"write_uid\": \"5d679819325ab70ab0157ce5\",\n                \"write_date\": \"2019-11-05T01:26:10.350Z\",\n                \"company_id\": \"ROOT\",\n                \"status\": true,\n                \"delete_id\": null,\n                \"reaction\": [],\n                \"country_id\": \"243\",\n                \"code\": \"79\",\n                \"name\": \"Thành phố Hồ Chí Minh\",\n                \"type\": \"Thành phố\",\n                \"__v\": 0,\n                \"points\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        106.704809484,\n                        10.735237004\n                    ]\n                }\n            }\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/full-location",
+    "title": "Get Full Location",
+    "name": "Get_Full_Location",
+    "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>Code.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Address ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"code\": ,\n  \"id\": 5dc0d057ade2533578818f95\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Oject",
+            "optional": false,
+            "field": "getFullLocation",
+            "description": "<p>Full Location</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n    \"status\": true,\n    \"data\": [\n        {\n            \"company_id\": \"ROOT\",\n            \"status\": true,\n            \"reaction\": [],\n            \"polygon_id\": [\n                \"5dc100149bae9d046cfc645e\"\n            ],\n            \"_id\": \"5e2179a416b70e34ec8fbedf\",\n            \"address_name\": \"Thành phố Hồ Chí Minh\",\n            \"type\": \"C\",\n            \"parent_id\": null,\n            \"points\": {\n                \"type\": \"Point\",\n                \"coordinates\": [\n                    106.704809484,\n                    10.735237004\n                ]\n            },\n            \"code\": \"79\",\n            \"create_uid\": \"5d9c3342cc1f7b3f4c8e79dd\",\n            \"__v\": 0\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/get_list_suggestion",
+    "title": "Get List Suggestion",
+    "name": "Get_List_Suggestion",
+    "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keyword",
+            "description": "<p>Keyword Suggestion.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Limit Suggestion.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"keyword\": s,\n  \"limit\": 10\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "ward",
+            "description": "<p>Ward ID</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "[\n    {\n        \"name\": \"project\",\n        \"status\": true,\n        \"rel_id\": \"5db80d0244ab3a16f4216081\",\n        \"weight\": 0.5,\n        \"refPath\": \"project\",\n        \"ward_id\": \"5dc237b7d508de3c4c58981f\",\n        \"title\": \"Ehome S\",\n        \"sub_title\": \"Phường Phú Hữu Quận 9 Thành phố Hồ Chí Minh \",\n        \"search\": \"ehome s ehome s phường phú hữu quận 9 thành phố hồ chí minh  phuong phu huu quan 9 thanh pho ho chi minh\",\n        \"_id\": \"5dfc86de3f2b693a94a83965\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5e2179a516b70e34ec8fbf00\",\n        \"weight\": 1,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Tỉnh Lạng Sơn\",\n        \"sub_title\": \" \",\n        \"search\": \"tỉnh lạng sơn tinh lang son\",\n        \"_id\": \"5e4c996aa977954014701016\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5e2179a616b70e34ec8fbf14\",\n        \"weight\": 1,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Tỉnh Sóc Trăng\",\n        \"sub_title\": \" \",\n        \"search\": \"tỉnh sóc trăng tinh soc trang\",\n        \"_id\": \"5e4c996aa97795401470102a\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5e2179a516b70e34ec8fbf0b\",\n        \"weight\": 1,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Tỉnh Sơn La\",\n        \"sub_title\": \" \",\n        \"search\": \"tỉnh sơn la tinh son la\",\n        \"_id\": \"5e4c996aa977954014701021\"\n    },\n    {\n        \"name\": \"project\",\n        \"status\": true,\n        \"rel_id\": \"5e450e6a44a1629b59d305f0\",\n        \"weight\": 0.5,\n        \"refPath\": \"project\",\n        \"ward_id\": \"5dc237b6d508de3c4c5897d5\",\n        \"title\": \"Chung cư Ehome 4 Bắc Sài Gòn\",\n        \"sub_title\": \"Phường Vĩnh Phú Thị xã Thuận An Tỉnh Bình Dương\",\n        \"search\": \"Chung cư Ehome 4 Bắc Sài Gòn chung cu ehome 4 bac sai gon\",\n        \"_id\": \"5e450eb644a1629b59d30a14\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5dc0d055ade2533578818b9f\",\n        \"weight\": 0.5,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Huyện Bắc Sơn\",\n        \"sub_title\": \"Tỉnh Lạng Sơn \",\n        \"search\": \"huyện bắc sơn huyen bac son\",\n        \"_id\": \"5e4c9966a9779540146fe18c\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5dc0d055ade2533578818b87\",\n        \"weight\": 0.5,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Huyện Anh Sơn\",\n        \"sub_title\": \"Tỉnh Nghệ An \",\n        \"search\": \"huyện anh sơn huyen anh son\",\n        \"_id\": \"5e4c9966a9779540146fe180\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5dc0d055ade2533578818bc7\",\n        \"weight\": 0.5,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Huyện Bình Sơn\",\n        \"sub_title\": \"Tỉnh Quảng Ngãi \",\n        \"search\": \"huyện bình sơn huyen binh son\",\n        \"_id\": \"5e4c9966a9779540146fe1a0\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5dc0d055ade2533578818c61\",\n        \"weight\": 0.5,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Huyện Đắk Song\",\n        \"sub_title\": \"Tỉnh Đắk Nông \",\n        \"search\": \"huyện đắk song huyen dak song\",\n        \"_id\": \"5e4c9966a9779540146fe1ed\"\n    },\n    {\n        \"name\": \"res_address\",\n        \"status\": true,\n        \"rel_id\": \"5dc0d055ade2533578818c33\",\n        \"weight\": 0.5,\n        \"refPath\": \"res_address_new\",\n        \"title\": \"Huyện Chư Sê\",\n        \"sub_title\": \"Tỉnh Gia Lai \",\n        \"search\": \"huyện chư sê huyen chu se\",\n        \"_id\": \"5e4c9966a9779540146fe1d6\"\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/polygon_outside",
+    "title": "Get Polyson Outside",
+    "name": "Get_Polygon_Outside",
+    "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "bound",
+            "description": "<p>Bound Bound Of Map.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Limit Items.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "current_address_id",
+            "description": "<p>Current Address ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"bound\": [[105.35166738031913,10.029879599733322],[107.4267101049285,11.337500989804807]],\n  \"limit\": 63,\n  \"current_address_id\": 5e2179a416b70e34ec8fbedf\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "listPolygonOutside",
+            "description": "<p>List Polygon Outside</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "[\n    {\n        \"_id\": \"5e2179a416b70e34ec8fbedd\",\n        \"address_name\": \"Thành phố Cần Thơ\",\n        \"type\": \"C\",\n        \"polygon\": [\n            {\n                \"_id\": \"5dc100149bae9d046cfc645c\",\n                \"polygons\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                105.49543762200005,\n                                10.32534885400005\n                            ],\n                            [...],\n                            [...]\n                        ]\n                    ]\n                }\n            }\n        ]\n    }\n    {...},\n    {...}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./map.js",
+    "groupTitle": "Map"
+  },
+  {
+    "type": "get",
+    "url": "/map/product_in_bound",
+    "title": "Get Product In Bound",
+    "name": "ProductInBound",
+    "group": "Map",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>Limit Product In Bound.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Int32",
+            "optional": false,
+            "field": "page",
+            "description": "<p>Number Of Page</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "bound",
+            "description": "<p>Bound of Map.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "project",
+            "description": "<p>Use In Future.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "filter",
+            "description": "<p>Filter Product.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "totalFlag",
+            "description": "<p>Total Flag.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"limit\": 500,\n  \"page\": 1,   \n  \"bound\": [[106.17609244298436,10.453111978944845],[107.21361380528904,11.106725985230485]],\n  \"address_id\": 5e2179a416b70e34ec8fbedf,\n  \"project\": {%22_id%22:1,%22name%22:1,%22points%22:1,%22polygons%22:1,%22a_value%22:1,%22a_value_unit_id%22:1,\n             %22ward_id%22:1,%22land_area%22:1,%22land_area_unit_id%22:1,%22area_unit_id%22:1,%22area%22:1,%22length%22:1,\n             %22length_unit_id%22:1,%22width_unit_id%22:1,%22width%22:1,%22bathroom%22:1,%22image%22:1,%22sub_image%22:1,\n             %22bedroom%22:1,%22type_id%22:1,%22direction%22:1,%22page_number%22:1,%22plot_number%22:1,%22category_id%22:1,\n             %22product_type._id%22:1,%22product_type.type_name%22:1,%22bedroom_unit_id%22:1,%22bathroom_unit_id%22:1,\n             %22floor_unit_id%22:1,%22product_type.marker_url%22:1,%22product_type.marker_hover_url%22:1,\n             %22product_type.color_code%22:1,%22sale_price%22:1,%22sale_price_unit_id%22:1,%22sale_price_value%22:1,\n             %22number_of_sheet%22:1,%22number_of_parcel%22:1,%22number_of_floor%22:1,%22number_of_floor_unit_id%22:1,\n             %22product_category.category_name%22:1,%22product_category.code%22:1},\n  \"filter\":  {%22type%22:[%225d6e56c88e18e6eaf5076069%22,%225d6e570e65b46f56a7f71a78%22,%225d6e572125130a5ca6726e59%22,\n             %225dd5e40cd59979b3b848b5c6%22],%22category%22:[%225db2c448f835f22804d62d33%22,%225db2c448f835f22804d62d34%22,\n             %225db2c448f835f22804d62d36%22,%225db2c448f835f22804d62d38%22,%225db2c448f835f22804d62d39%22,\n             %225db2c448f835f22804d62d3a%22,%225db2c448f835f22804d62d3b%22,%225db2c448f835f22804d62d3c%22,\n             %225db2c448f835f22804d62d3d%22,%225db2c448f835f22804d62d3e%22,%225db2c449f835f22804d62d3f%22,\n             %225db2c449f835f22804d62d40%22,%225db2c449f835f22804d62d41%22,%225dfaf87874ef956220a61749%22,\n             %225e048582180d9a4f4c90301a%22,%225e04859a180d9a4f4c90301c%22,%225e0485ea180d9a4f4c90301e%22,\n             %225e048620180d9a4f4c903020%22,%225e048638180d9a4f4c903022%22,%225e04864e180d9a4f4c903024%22,\n             %225e048662180d9a4f4c903026%22,%225e048673180d9a4f4c903028%22,%225e048686180d9a4f4c90302a%22,\n             %225e04869f180d9a4f4c90302c%22,%225e0486b2180d9a4f4c90302e%22,%225e0486c5180d9a4f4c903030%22,\n             %225e0486db180d9a4f4c903032%22,%225e0486ea180d9a4f4c903034%22,%225e0486fb180d9a4f4c903036%22,\n             %225e04870c180d9a4f4c903038%22,%225e04871b180d9a4f4c90303a%22,%225e04872f180d9a4f4c90303c%22,\n             %225e04873d180d9a4f4c90303e%22],%22bedroom%22:%220%22,%22price%22:{},%22advance%22:{}},     \n  \"totalFlag\": null              \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "listProduct",
+            "description": "<p>List Of Product In Bound.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n [\n     {\n         \"_id\": \"5de4ec212f894f8560078f54\",\n         \"polygons\": {\n             \"type\": \"Polygon\",\n             \"coordinates\": [\n                 [\n                     [\n                         106.690254102,\n                         10.734219981\n                     ],\n                     [\n                         106.690208396,\n                         10.7342207520001\n                     ],\n                     [\n                         106.690204454,\n                         10.734039957\n                     ],\n                     [\n                         106.690250161,\n                         10.734039276\n                     ],\n                     [\n                         106.690254102,\n                         10.734219981\n                     ]\n                 ]\n             ]\n         },\n         \"points\": [\n             106.690229276361,\n             10.7341299918473\n         ],\n         \"code\": \"790103R80.485\",\n         \"ward_id\": \"5dc237d1d508de3c4c58bb71\",\n         \"direction\": \"Hướng Tây\",\n         \"image\": \"https://api.asset.vn\\\\product\\\\5de4ec212f894f8560078f54\\\\5de4ec212f894f8560078f54-image-hinh 1.PNG-1575283745674.png\",\n         \"name\": \"Nhà riêng lẻ Bình Chánh\",\n         \"category_id\": \"5db2c448f835f22804d62d3c\",\n         \"sale_price\": 7,\n         \"width\": 5,\n         \"length\": 16,\n         \"land_area\": 80,\n         \"type_id\": \"5d6e572125130a5ca6726e59\",\n         \"a_value_rate\": 7000,\n         \"feature\": \"Mặt tiền\",\n         \"bedroom\": 3,\n         \"bathroom\": 3,\n         \"number_of_floor\": 3,\n         \"number_of_sheet\": 80,\n         \"number_of_parcel\": \"485\",\n         \"search\": \"nhà riêng nha rieng xã bình hưng huyện bình chánh thành phố hồ chí minh  xa binh hung huyen binh chanh thanh pho ho chi minh\"\n     },\n     {\n         \"_id\": \"5def3fdeb4269b3324197bea\",\n         \"polygons\": {\n             \"type\": \"Polygon\",\n             \"coordinates\": [\n                 [\n                     [\n                         106.831091577,\n                         10.841537504\n                     ],\n                     [\n                         106.831162754,\n                         10.841444532\n                     ],\n                     [\n                         106.831190638,\n                         10.841467929\n                     ],\n                     [\n                         106.831119506,\n                         10.8415608550001\n                     ],\n                     [\n                         106.831091577,\n                         10.841537504\n                     ]\n                 ]\n             ]\n         },\n         \"points\": [\n             106.831141116207,\n             10.8415027055864\n         ],\n         \"code\": \"792104R60.537\",\n         \"ward_id\": \"5dc237b7d508de3c4c589809\",\n         \"direction\": \"Hướng Bắc Nam\",\n         \"image\": \"https://api.asset.vn\\\\product\\\\5def3fdeb4269b3324197bea\\\\5def3fdeb4269b3324197bea-image-z1652736546435_c520282427c3aad27bbec0f0779ecb7f.jpg-1575960542391.jpeg\",\n         \"name\": \"Nhà phố Quận 9 Phường Long Thạnh Mỹ\",\n         \"category_id\": \"5db2c448f835f22804d62d3c\",\n         \"sale_price\": 4,\n         \"width\": 5,\n         \"length\": 10,\n         \"land_area\": 51.61,\n         \"type_id\": \"5d6e56c88e18e6eaf5076069\",\n         \"a_value_rate\": 4000,\n         \"feature\": \"Hẻm\",\n         \"bedroom\": 3,\n         \"bathroom\": 4,\n         \"number_of_floor\": 2,\n         \"number_of_sheet\": 60,\n         \"number_of_parcel\": \"537\",\n         \"search\": \"nhà riêng nha rieng phường long thạnh mỹ quận 9 thành phố hồ chí minh  phuong long thanh my quan 9 thanh pho ho chi minh\"\n     },\n     {\n         \"_id\": \"5def4d3fb4269b3324197bf4\",\n         \"polygons\": {\n             \"type\": \"Polygon\",\n             \"coordinates\": [\n                 [\n                     [\n                         106.704226,\n                         10.740759\n                     ]\n                 ]\n             ]\n         },\n         \"points\": [\n             106.704226,\n             10.740759\n         ],\n         \"code\": \"791908R0000.0000\",\n         \"ward_id\": \"5dc237ccd508de3c4c58b46a\",\n         \"direction\": \"Hướng Bắc\",\n         \"image\": \"https://api.asset.vn\\\\product\\\\5def4d3fb4269b3324197bf4\\\\5def4d3fb4269b3324197bf4-image-78991114_1460328227449668_3998705790566268928_o.jpg-1575963967940.jpeg\",\n         \"name\": \"Nhà cho thuê tại Q7 giá rẻ\",\n         \"category_id\": \"5db2c448f835f22804d62d33\",\n         \"sale_price\": 4,\n         \"width\": null,\n         \"length\": null,\n         \"land_area\": 15,\n         \"type_id\": \"5d6e570e65b46f56a7f71a78\",\n         \"a_value_rate\": 4,\n         \"feature\": \"Mặt tiền\",\n         \"bedroom\": 1,\n         \"bathroom\": 1,\n         \"search\": \"căn hộ chung cư can ho chung cu phường tân quy quận 7 thành phố hồ chí minh  phuong tan quy quan 7 thanh pho ho chi minh\"\n     }\n ]\n},",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server error\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "./map.js",
