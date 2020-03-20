@@ -718,6 +718,64 @@
   },
   {
     "type": "post",
+    "url": "/auth/check-info-signup",
+    "title": "Check Info Signup",
+    "name": "CheckInfoSignup",
+    "group": "Authenticate",
+    "version": "0.1.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "newUser",
+            "description": "<p>New User Info.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n     \"newUser\": {\n        \"first_name\": \"Minh\",\n        \"last_name\": \"Hinh Hoc\",\n        \"email\": \"\",\n        \"referral_code\": \"AOZ505\",\n        \"country_code\": \"84\",\n        \"phone\": \"0792452548\",\n        \"inactive\": \"true\",\n        \"password\": hashedPassword\n     }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response-Data:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\",\n  \"data\": \"5de478a602949b06006a3dab\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Connection",
+            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./auth.js",
+    "groupTitle": "Authenticate"
+  },
+  {
+    "type": "post",
     "url": "/auth/get-role-token",
     "title": "Get Role Token",
     "name": "CheckInfoSignup",
@@ -762,64 +820,6 @@
         {
           "title": "Success-Response-Data:",
           "content": "HTTP/1.1 200 OK\n{\n  \"data\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQ5YzMzNDJjYzFmN2IzZjRjOGU3OWRkIiwiZ3JvdXBfaWQiOiI1ZDlkOTRmZTkzZDFiNjc4YmJlMzU2OGEiLCJjb21wYW55X2lkIjoiNWQ5YWUzM2E2Yzg3MjAzNmE0YjJkNDdmIiwiaWF0IjoxNTc1MzQxMzYxLCJleHAiOjMzMTExMzQxMzYxfQ.Zs02ntLptgAmf873qPe2aRiIbOH0ywtAc8-3OmmAimzR7Yn_UjnR7_S5F1L1RluuAAcZdqWOwlurp0fADoKRAg\"\n  \"status\": \"true\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "Connection",
-            "description": "<p>The <code>connection</code> of the server was interrupted.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"false\"\n  \"message\": \"Server lỗi\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "./auth.js",
-    "groupTitle": "Authenticate"
-  },
-  {
-    "type": "post",
-    "url": "/auth/check-info-signup",
-    "title": "Check Info Signup",
-    "name": "CheckInfoSignup",
-    "group": "Authenticate",
-    "version": "0.1.0",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Object",
-            "optional": false,
-            "field": "newUser",
-            "description": "<p>New User Info.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Request-Example:",
-          "content": "{\n     \"newUser\": {\n        \"first_name\": \"Minh\",\n        \"last_name\": \"Hinh Hoc\",\n        \"email\": \"\",\n        \"referral_code\": \"AOZ505\",\n        \"country_code\": \"84\",\n        \"phone\": \"0792452548\",\n        \"inactive\": \"true\",\n        \"password\": hashedPassword\n     }\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response-Data:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"status\": \"true\",\n  \"data\": \"5de478a602949b06006a3dab\"\n}",
           "type": "json"
         }
       ]
@@ -3669,6 +3669,97 @@
         ]
       },
       "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server lỗi\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./project.js",
+    "groupTitle": "Project"
+  },
+  {
+    "type": "get",
+    "url": "/project/detail",
+    "title": "Get Project Detail",
+    "name": "GetProjectDetail",
+    "group": "Project",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectId",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Project ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example:",
+          "content": "{\n  \"id\": 5db80cfe44ab3a16f4215886           \n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "result",
+            "description": "<p>Project Detail.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example data on success:",
+          "content": "{\n    \"_id\": \"5db80cfe44ab3a16f4215886\",\n    \"create_uid\": {\n        \"_id\": \"5dbb9d3b65bb02ebb0ec7fb3\",\n        \"email\": \"tu.nguyen@asset.vn\",\n        \"avatar\": \"\",\n        \"first_name\": \"Asset Data\",\n        \"last_name\": \"Team\",\n        \"phone\": \"3000000001\"\n    },\n    \"create_date\": \"2019-10-29T09:57:00.655Z\",\n    \"write_uid\": null,\n    \"write_date\": \"2019-10-29T09:57:00.655Z\",\n    \"company_id\": \"\",\n    \"status\": true,\n    \"delete_id\": null,\n    \"description\": {\n        \"description\": \"Gồm 3 khu nhà liên kế LK1, LK2, LK3\"\n    },\n    \"reaction\": [],\n    \"sub_image\": [],\n    \"code\": \"790101P00002\",\n    \"parent_id\": \"5db80cfe44ab3a16f4215883\",\n    \"points\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            106.598754261604,\n            10.6845769284695\n        ]\n    },\n    \"polygons\": {\n        \"type\": \"Polygon\",\n        \"coordinates\": [\n            [\n                [\n                    106.597746687,\n                    10.68441784900006\n                ],\n                [\n                    106.5977364440001,\n                    10.68403031900004\n                ],\n                [\n                    106.599022469,\n                    10.68381704800004\n                ],\n                [\n                    106.5990279050001,\n                    10.68428372700004\n                ],\n                [\n                    106.5994064820001,\n                    10.68427147900007\n                ],\n                [\n                    106.599410413,\n                    10.68480805300004\n                ],\n                [\n                    106.5996669500001,\n                    10.68481070900003\n                ],\n                [\n                    106.599689734,\n                    10.68507071100004\n                ],\n                [\n                    106.5991819860001,\n                    10.68509009700006\n                ],\n                [\n                    106.5991677790001,\n                    10.68550970200005\n                ],\n                [\n                    106.598865157,\n                    10.68548856900003\n                ],\n                [\n                    106.5989555750001,\n                    10.68481591000005\n                ],\n                [\n                    106.5989781950001,\n                    10.68434031400005\n                ],\n                [\n                    106.597746687,\n                    10.68441784900006\n                ]\n            ]\n        ]\n    },\n    \"ward_id\": \"5dc237d1d508de3c4c58bb75\",\n    \"category_id\": \"5d834606a2178d987367003a\",\n    \"name\": \"HQC An Phú Tây - U\",\n    \"apartment_project_unit_id\": \"dự án chung cư\",\n    \"urban_project\": 1,\n    \"urban_project_unit_id\": \"dự án đô thị\",\n    \"resort_project\": null,\n    \"ch_unit_id\": \"CH\",\n    \"sh_unit_id\": \"SH\",\n    \"oft_unit_id\": \"OFT\",\n    \"tmdv_unit_id\": \"m2 TMDV\",\n    \"hotel_room_unit_id\": \"phòng khách sạn\",\n    \"villa_unit_id\": \"biệt thự\",\n    \"private_house_unit_id\": \"Nhà riêng\",\n    \"row_house_unit_id\": \"nhà phố liên kế\",\n    \"lands\": 58,\n    \"lands_unit_id\": \"nền đất\",\n    \"condotel_unit_id\": \"condotel\",\n    \"bungalow_unit_id\": \"bungalow\",\n    \"land_area\": 2235,\n    \"land_area_unit_id\": \"m2\",\n    \"cons_status\": \"5db66cb206d6a109b1513792\",\n    \"planing_category_id\": \"5dc38bf3b276eb1c887806a2\",\n    \"floor_unit_id\": \"tầng\",\n    \"block_unit_id\": \"block\",\n    \"search\": \"hqc an phu tay u\",\n    \"__v\": 1,\n    \"comment\": [],\n    \"image\": \"images/Project/Ho%20Chi%20Minh/Huyen%20Binh%20Chanh/790101P00001%20-%20HQC%20An%20Phu%20Tay/hinh_dai_dien_hqc_an_phu_tay.jpg\",\n    \"location\": \"N/A\",\n    \"investor_id\": [\n        \"5db814ca5d0a533960ad5baa\"\n    ],\n    \"handover_time\": \"2018-09-02T00:00:00.000Z\",\n    \"contractor_id\": [],\n    \"designer_id\": [],\n    \"manager_id\": [],\n    \"resort_project_unit_id\": \"dự án nghỉ dưỡng\",\n    \"sale_status\": \"5dde360bd59979b3b85cfaf3\",\n    \"rating\": [],\n    \"asset_rating\": 0,\n    \"legal\": \"Tình trạng pháp lý chưa rõ\",\n    \"legal_info_id\": \"5e465f840567113decd48019\",\n    \"model_house_info_id\": \"5e465f840567113decd4801a\",\n    \"sale_price_unit_id\": \"triệu/căn\",\n    \"comme_project_unit_id\": \"dự án TMDV\",\n    \"hotel_project_unit_id\": \"dự án khách sạn\",\n    \"cemet_unit_id\": \"BĐS hoa viên\",\n    \"farm_unit_id\": \"trang trại\",\n    \"harbo_unit_id\": \"bến cảng\",\n    \"indu_unit_id\": \"dự án KCN\",\n    \"bindu_unit_id\": \"BĐS KCN\",\n    \"edme_unit_id\": \"dự án GD - YT\",\n    \"bedme_unit_id\": \"BĐS GD - YT\",\n    \"hotel_unit_id\": \"block khách sạn\",\n    \"resvl_unit_id\": \"biệt thự nghỉ dưỡng\",\n    \"small_unit_id\": \"block TTTM\",\n    \"office_unit_id\": \"block VP\",\n    \"category\": {\n        \"_id\": \"5d834606a2178d987367003a\",\n        \"create_uid\": \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        \"create_date\": \"2019-07-10T13:01:26.292Z\",\n        \"write_uid\": \"b01e6241-0488-40b1-bc53-525050cd6d58\",\n        \"write_date\": \"2019-09-03T02:09:51.852Z\",\n        \"company_id\": \"ROOT\",\n        \"status\": true,\n        \"delete_id\": \"2ea1eb33-0681-4ef5-a10b-151ef41c028d\",\n        \"category_name\": \"Dự án Khu đô thị\",\n        \"parent_id\": \"\",\n        \"category_code\": \"UPROJ\",\n        \"sequence\": 4,\n        \"keyworks\": \"\",\n        \"description\": \"\",\n        \"color\": \"#B7BAF3\"\n    },\n    \"investorDetail\": [\n        {\n            \"_id\": \"5db814ca5d0a533960ad5baa\",\n            \"create_uid\": \"5dbb9fbbebd384b5e4ecc368\",\n            \"create_date\": \"2020-01-16T09:04:52.071Z\",\n            \"write_uid\": \"5d679819325ab70ab0157ce5\",\n            \"write_date\": \"2019-10-29T10:14:41.057Z\",\n            \"company_id\": \"ROOT\",\n            \"status\": true,\n            \"delete_id\": null,\n            \"parent_id\": null,\n            \"tel\": \"02839913080\",\n            \"hotline\": \"\",\n            \"email\": \"\",\n            \"website\": \"www.hoangquan.com.vn\",\n            \"address1\": \"286-288 Huỳnh Văn Bánh, Phường 11, Quận Phú Nhuận, Thành phố Hồ Chí Minh\",\n            \"address\": \"286-288 Huỳnh Văn Bánh\",\n            \"company_name\": \"Công ty cổ phần Tư vấn – Thương mại – Dịch vụ địa ốc Hoàng Quân\",\n            \"display_name\": \"Hoang Quan Corp\",\n            \"founded_year\": 2007,\n            \"legal_representative\": \"Trương Anh Tuấn\",\n            \"company_type\": \"CTCP\",\n            \"tax_code\": \"0302087938\",\n            \"bank_account\": \"\",\n            \"bank_name\": \"\",\n            \"bank_branch\": \"\",\n            \"description\": \"<!DOCTYPE html>\\n<html>\\n<head>\\n</head>\\n<body>\\n<p style=\\\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\\\"><span style=\\\"color: #000000;\\\">Được th&agrave;nh lập v&agrave;o năm 2000, đến nay Ho&agrave;ng Qu&acirc;n Group đ&atilde; trở th&agrave;nh một trong những tập đo&agrave;n h&agrave;ng đầu Việt Nam về đầu tư kinh doanh bất động sản. Đặc biệt, Ho&agrave;ng Qu&acirc;n l&agrave; doanh nghiệp ti&ecirc;n phong đầu tư x&acirc;y dựng v&agrave; ph&aacute;t triển nh&agrave; ở x&atilde; hội tại khu vực ph&iacute;a Nam qua việc triển khai h&agrave;ng loạt c&aacute;c dự &aacute;n c&oacute; quy m&ocirc; lớn tại Th&agrave;nh phố Hồ Ch&iacute; Minh, Cần Thơ, Vĩnh Long, T&acirc;y Ninh, B&igrave;nh Thuận, Nha Trang,... cung cấp h&agrave;ng chục ng&agrave;n căn hộ đến cho người d&acirc;n.</span></p>\\n<p style=\\\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\\\">&nbsp;</p>\\n<p style=\\\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\\\"><span style=\\\"color: #000000;\\\">Ngay từ l&uacute;c đặt nền m&oacute;ng x&acirc;y dựng, Ho&agrave;ng Qu&acirc;n lu&ocirc;n hướng đến kh&aacute;ch h&agrave;ng với phương ch&acirc;m \\\"Tri thức &ndash; S&aacute;ng tạo &ndash; Ti&ecirc;n phong\\\", đem đến cho kh&aacute;ch h&agrave;ng những sản phẩm với gi&aacute; trị chuy&ecirc;n nghiệp, chất lượng v&agrave; dịch vụ tốt nhất. B&ecirc;n cạnh thế mạnh về lĩnh vực bất động sản, Ho&agrave;ng Qu&acirc;n c&ograve;n tăng cường đầu tư ph&aacute;t triển lĩnh vực gi&aacute;o dục, t&agrave;i ch&iacute;nh. Với những th&agrave;nh quả đ&atilde; đạt được trong những năm qua, Ho&agrave;ng Qu&acirc;n sẽ c&agrave;ng tự h&agrave;o v&agrave; vững bước hơn nữa với mục ti&ecirc;u trở th&agrave;nh tập đo&agrave;n &ldquo;Bất động sản &ndash; Gi&aacute;o dục &ndash; T&agrave;i ch&iacute;nh&rdquo; h&ugrave;ng mạnh n&ecirc;u cao tinh thần &ldquo;Vững bước ti&ecirc;n phong &ndash; N&acirc;ng tầm cao mới&rdquo;.</span></p>\\n<p style=\\\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\\\">&nbsp;</p>\\n<p style=\\\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\\\"><span style=\\\"color: #000000;\\\">Từ khi th&agrave;nh lập, Ho&agrave;ng Qu&acirc;n đ&atilde; tự h&agrave;o l&agrave; c&ocirc;ng ty đầu ti&ecirc;n trong ng&agrave;nh địa ốc triển khai v&agrave; &aacute;p dụng Hệ thống Quản l&yacute; chất lượng ISO 9001:2008, v&agrave; cũng l&agrave; c&ocirc;ng ty đầu ti&ecirc;n tại Việt Nam x&acirc;y dựng quy tr&igrave;nh hoạt động bất động sản kh&eacute;p k&iacute;n từ m&ocirc;i giới, đến thiết kế, x&acirc;y dựng, thẩm định gi&aacute;, ph&aacute;p l&yacute;, đem lại hiệu quả kinh tế cao cho kh&aacute;ch h&agrave;ng. Hiện tại, hệ thống Ho&agrave;ng Qu&acirc;n c&oacute; 16 c&ocirc;ng ty th&agrave;nh vi&ecirc;n, 14 chi nh&aacute;nh &ndash; trung t&acirc;m giao dịch tr&ecirc;n khắp c&aacute;c tỉnh th&agrave;nh cả nước. Lượng kh&aacute;ch h&agrave;ng, đối t&aacute;c trong v&agrave; ngo&agrave;i nước tham gia g&oacute;p vốn đầu tư c&ugrave;ng Ho&agrave;ng Qu&acirc;n l&ecirc;n đến con số 10,000. Đội ngũ nh&acirc;n sự gần 1,000 nh&acirc;n vi&ecirc;n c&oacute; tr&igrave;nh độ chuy&ecirc;n m&ocirc;n cao (tiến sỹ, thạc sỹ, luật sư, chuy&ecirc;n vi&ecirc;n,...) mang phong c&aacute;ch phục vụ chuy&ecirc;n nghiệp.</span></p>\\n</body>\\n</html>\",\n            \"search\": \"CÔNG TY CỔ PHẦN TƯ VẤN - THƯƠNG MẠI - DỊCH VỤ ĐỊA ỐC HOÀNG QUÂN cong ty co phan tu van thuong mai dich vu dia oc hoang quan ĐỊA ỐC HOÀNG QUÂN dia oc hoang quan\",\n            \"points\": null,\n            \"icon\": \"\",\n            \"logo\": \"images/Company/0701%20-%200800/0736%20-%20Dia%20Oc%20Hoang%20Quan/logo_dia_oc_hoang_quan.png\",\n            \"code\": \"IV.0736\",\n            \"__v\": 0,\n            \"rating\": [],\n            \"rating_avg\": 0,\n            \"reaction\": [],\n            \"category_id\": \"5dafd01513818c28e0916318\",\n            \"banner\": \"\",\n            \"company_code\": \"0302087938\",\n            \"country_code\": \"(+84)\",\n            \"foreign_name\": \"\",\n            \"main_business\": \"Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê\",\n            \"operating_status\": \"Đang hoạt động\",\n            \"ward_id\": \"5dc237a6d508de3c4c58834a\",\n            \"type\": \"APPROVED\",\n            \"bank_id\": null\n        }\n    ],\n    \"landTypeDetail\": {\n        \"_id\": \"5dc38bf3b276eb1c887806a2\",\n        \"red\": \"255\",\n        \"green\": \"160\",\n        \"code\": \"ODT\",\n        \"name\": \"Đất ở tại đô thị\",\n        \"__v\": 0,\n        \"blue\": \"255\"\n    },\n    \"cons_statusDetail\": {\n        \"_id\": \"5db66cb206d6a109b1513792\",\n        \"create_uid\": \"5d679819325ab70ab0157ce5\",\n        \"create_date\": \"2019-10-04T01:12:09.606Z\",\n        \"write_uid\": \"5d679819325ab70ab0157ce5\",\n        \"write_date\": \"2019-10-04T01:12:09.606Z\",\n        \"company_id\": \"ROOT\",\n        \"status\": true,\n        \"delete_id\": null,\n        \"image_url\": \"\",\n        \"sequence\": 0,\n        \"parent_id\": null,\n        \"status_name\": \"Chưa rõ\",\n        \"fill\": \"#9c9c9c\",\n        \"marker_url\": \"Marker_chualam.svg\",\n        \"marker_hover_url\": \"marker_bds_ban_hover.svg\",\n        \"__v\": 0,\n        \"code\": \"PENDING\"\n    },\n    \"category_name\": \"Dự án Khu đô thị\",\n    \"create_user_role\": [\n        \"Asset Data Center\"\n    ],\n    \"wardDetail\": {\n        \"_id\": \"5dc237d1d508de3c4c58bb75\",\n        \"create_uid\": \"5d679819325ab70ab0157ce5\",\n        \"create_date\": \"2020-01-16T09:02:21.597Z\",\n        \"write_uid\": \"5d679819325ab70ab0157ce5\",\n        \"write_date\": \"2019-11-06T03:00:21.913Z\",\n        \"company_id\": \"ROOT\",\n        \"status\": true,\n        \"delete_id\": null,\n        \"reaction\": [],\n        \"code\": \"790101\",\n        \"name\": \"Xã An Phú Tây\",\n        \"type\": \"Xã\",\n        \"district_id\": \"5dc0d055ade2533578818bbb\",\n        \"points\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                106.607859787,\n                10.6875390948\n            ]\n        },\n        \"__v\": 0\n    },\n    \"districtDetail\": {\n        \"_id\": \"5dc0d055ade2533578818bbb\",\n        \"create_uid\": \"5d679819325ab70ab0157ce5\",\n        \"create_date\": \"2020-01-16T09:03:10.342Z\",\n        \"write_uid\": \"5d679819325ab70ab0157ce5\",\n        \"write_date\": \"2019-11-05T01:28:42.327Z\",\n        \"company_id\": \"ROOT\",\n        \"status\": true,\n        \"delete_id\": null,\n        \"reaction\": [],\n        \"code\": \"7901\",\n        \"main_code\": \"01\",\n        \"name\": \"Huyện Bình Chánh\",\n        \"type\": \"Huyện\",\n        \"province_id\": \"5dc0cfc6bf871b3a3c6296bd\",\n        \"points\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                106.575826672,\n                10.7337045834\n            ]\n        },\n        \"__v\": 0\n    },\n    \"provinceDetail\": {\n        \"_id\": \"5dc0cfc6bf871b3a3c6296bd\",\n        \"create_uid\": \"5d679819325ab70ab0157ce5\",\n        \"create_date\": \"2019-11-05T01:26:10.350Z\",\n        \"write_uid\": \"5d679819325ab70ab0157ce5\",\n        \"write_date\": \"2019-11-05T01:26:10.350Z\",\n        \"company_id\": \"ROOT\",\n        \"status\": true,\n        \"delete_id\": null,\n        \"reaction\": [],\n        \"country_id\": \"243\",\n        \"code\": \"79\",\n        \"name\": \"Thành phố Hồ Chí Minh\",\n        \"type\": \"Thành phố\",\n        \"__v\": 0,\n        \"points\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                106.704809484,\n                10.735237004\n            ]\n        }\n    },\n    \"legal_info\": {\n        \"investment_approval\": {\n            \"status\": \"Có\",\n            \"file\": \"\\\\project\\\\5db80cfe44ab3a16f4215886\\\\5db80cfe44ab3a16f4215886-investment_approval_link-Approve Product Diagram (DATA).png-1581670326405.png\"\n        },\n        \"me_drawing_for_per_apartment\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"acceptance_of_fire_protection_system\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"acceptance_of_works\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"agreement_on_connection_of_electricity_and_water_works\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"agreement_on_traffic_connection\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"agreement_redbook_investor_and_buyer\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_backfill_design\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_basic_design\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_construction_design\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_engineering_design\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_fire_prevention_and_fighting\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"approval_of_infrastructure_design\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"bank_guarantee\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"basement_foundation_acceptance\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"certificate_of_business_registration\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"certificate_of_investment_registration\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"certification_of_investor\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"confirmation_of_infrastructure_completion\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"construction_permit\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"construction_survey_report\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"deal_of_construction_height\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"deal_of_embankment_edges\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"decisions_on_land_allocation_land_lease\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"economic_technical_report\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"environmental_impact_assessment_report\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"escrow_agreement\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"feasibility_study_repor\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"finish_dossiers\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"home_recieving_notice_to_buyers\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"house_numbering_decision\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"location_drawing\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"minutes_of_handover_of_houses_or_construction_to_buyers\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"notice_of_approval_of_sample_contract\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"notice_of_eligibility_for_capital_raising\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"notification_of_payment_of_land_use\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"notification_of_the_residences_eligibility_for_sale\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"notifications_of_request_for_registration_fee\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"redbook_buyer\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"redbook_land\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"strategic_environmental_assessment_report\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"status\": true,\n        \"_id\": \"5e465f840567113decd48019\",\n        \"__v\": 0,\n        \"detailed_planning_1_500\": {\n            \"status\": \"Chưa rõ\",\n            \"file\": null\n        },\n        \"create_date\": \"2020-03-20T09:26:37.073Z\",\n        \"write_date\": \"2020-03-20T09:26:37.073Z\"\n    },\n    \"cons_design_info\": {\n        \"_id\": null,\n        \"__v\": 0,\n        \"int_finishing\": {\n            \"wooden\": {\n                \"bed\": \"Chưa có\"\n            }\n        },\n        \"create_date\": \"2020-03-20T09:26:37.076Z\",\n        \"write_date\": \"2020-03-20T09:26:37.076Z\",\n        \"detail\": {}\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "idProject",
+            "description": "<p>The <code>idProject</code> was null.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "project",
+            "description": "<p>The <code>project</code> was not found.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "error",
+            "description": "<p>The <code>server</code> was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 4XX Bad Request\n{\n  \"status\": \"false\",\n  \"error\": \"Thiếu thông tin\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 4XX Not Found\n{\n  \"status\": \"false\",\n  \"error\": \"Không tìm thấy thông tin dự án\"\n}",
+          "type": "json"
+        },
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 5XX Internal Server Error\n{\n  \"status\": \"false\",\n  \"error\": \"Server lỗi\"\n}",
