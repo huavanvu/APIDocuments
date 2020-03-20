@@ -525,3 +525,550 @@
  *     }
  * 
  */
+
+
+
+
+
+
+ /**
+ * @api {get} /project/detail Get Project Detail
+ * @apiName GetProjectDetail
+ * @apiGroup Project
+ * @apiParam {ObjectId} id Project ID.
+ * @apiParamExample Example:
+ *     {
+ *       "id": 5db80cfe44ab3a16f4215886           
+ *     }
+ * @apiSuccess {Object} result Project Detail.
+ * @apiSuccessExample Example data on success:
+ *  {
+ *      "_id": "5db80cfe44ab3a16f4215886",
+ *      "create_uid": {
+ *          "_id": "5dbb9d3b65bb02ebb0ec7fb3",
+ *          "email": "tu.nguyen@asset.vn",
+ *          "avatar": "",
+ *          "first_name": "Asset Data",
+ *          "last_name": "Team",
+ *          "phone": "3000000001"
+ *      },
+ *      "create_date": "2019-10-29T09:57:00.655Z",
+ *      "write_uid": null,
+ *      "write_date": "2019-10-29T09:57:00.655Z",
+ *      "company_id": "",
+ *      "status": true,
+ *      "delete_id": null,
+ *      "description": {
+ *          "description": "Gồm 3 khu nhà liên kế LK1, LK2, LK3"
+ *      },
+ *      "reaction": [],
+ *      "sub_image": [],
+ *      "code": "790101P00002",
+ *      "parent_id": "5db80cfe44ab3a16f4215883",
+ *      "points": {
+ *          "type": "Point",
+ *          "coordinates": [
+ *              106.598754261604,
+ *              10.6845769284695
+ *          ]
+ *      },
+ *      "polygons": {
+ *          "type": "Polygon",
+ *          "coordinates": [
+ *              [
+ *                  [
+ *                      106.597746687,
+ *                      10.68441784900006
+ *                  ],
+ *                  [
+ *                      106.5977364440001,
+ *                      10.68403031900004
+ *                  ],
+ *                  [
+ *                      106.599022469,
+ *                      10.68381704800004
+ *                  ],
+ *                  [
+ *                      106.5990279050001,
+ *                      10.68428372700004
+ *                  ],
+ *                  [
+ *                      106.5994064820001,
+ *                      10.68427147900007
+ *                  ],
+ *                  [
+ *                      106.599410413,
+ *                      10.68480805300004
+ *                  ],
+ *                  [
+ *                      106.5996669500001,
+ *                      10.68481070900003
+ *                  ],
+ *                  [
+ *                      106.599689734,
+ *                      10.68507071100004
+ *                  ],
+ *                  [
+ *                      106.5991819860001,
+ *                      10.68509009700006
+ *                  ],
+ *                  [
+ *                      106.5991677790001,
+ *                      10.68550970200005
+ *                  ],
+ *                  [
+ *                      106.598865157,
+ *                      10.68548856900003
+ *                  ],
+ *                  [
+ *                      106.5989555750001,
+ *                      10.68481591000005
+ *                  ],
+ *                  [
+ *                      106.5989781950001,
+ *                      10.68434031400005
+ *                  ],
+ *                  [
+ *                      106.597746687,
+ *                      10.68441784900006
+ *                  ]
+ *              ]
+ *          ]
+ *      },
+ *      "ward_id": "5dc237d1d508de3c4c58bb75",
+ *      "category_id": "5d834606a2178d987367003a",
+ *      "name": "HQC An Phú Tây - U",
+ *      "apartment_project_unit_id": "dự án chung cư",
+ *      "urban_project": 1,
+ *      "urban_project_unit_id": "dự án đô thị",
+ *      "resort_project": null,
+ *      "ch_unit_id": "CH",
+ *      "sh_unit_id": "SH",
+ *      "oft_unit_id": "OFT",
+ *      "tmdv_unit_id": "m2 TMDV",
+ *      "hotel_room_unit_id": "phòng khách sạn",
+ *      "villa_unit_id": "biệt thự",
+ *      "private_house_unit_id": "Nhà riêng",
+ *      "row_house_unit_id": "nhà phố liên kế",
+ *      "lands": 58,
+ *      "lands_unit_id": "nền đất",
+ *      "condotel_unit_id": "condotel",
+ *      "bungalow_unit_id": "bungalow",
+ *      "land_area": 2235,
+ *      "land_area_unit_id": "m2",
+ *      "cons_status": "5db66cb206d6a109b1513792",
+ *      "planing_category_id": "5dc38bf3b276eb1c887806a2",
+ *      "floor_unit_id": "tầng",
+ *      "block_unit_id": "block",
+ *      "search": "hqc an phu tay u",
+ *      "__v": 1,
+ *      "comment": [],
+ *      "image": "images/Project/Ho%20Chi%20Minh/Huyen%20Binh%20Chanh/790101P00001%20-%20HQC%20An%20Phu%20Tay/hinh_dai_dien_hqc_an_phu_tay.jpg",
+ *      "location": "N/A",
+ *      "investor_id": [
+ *          "5db814ca5d0a533960ad5baa"
+ *      ],
+ *      "handover_time": "2018-09-02T00:00:00.000Z",
+ *      "contractor_id": [],
+ *      "designer_id": [],
+ *      "manager_id": [],
+ *      "resort_project_unit_id": "dự án nghỉ dưỡng",
+ *      "sale_status": "5dde360bd59979b3b85cfaf3",
+ *      "rating": [],
+ *      "asset_rating": 0,
+ *      "legal": "Tình trạng pháp lý chưa rõ",
+ *      "legal_info_id": "5e465f840567113decd48019",
+ *      "model_house_info_id": "5e465f840567113decd4801a",
+ *      "sale_price_unit_id": "triệu/căn",
+ *      "comme_project_unit_id": "dự án TMDV",
+ *      "hotel_project_unit_id": "dự án khách sạn",
+ *      "cemet_unit_id": "BĐS hoa viên",
+ *      "farm_unit_id": "trang trại",
+ *      "harbo_unit_id": "bến cảng",
+ *      "indu_unit_id": "dự án KCN",
+ *      "bindu_unit_id": "BĐS KCN",
+ *      "edme_unit_id": "dự án GD - YT",
+ *      "bedme_unit_id": "BĐS GD - YT",
+ *      "hotel_unit_id": "block khách sạn",
+ *      "resvl_unit_id": "biệt thự nghỉ dưỡng",
+ *      "small_unit_id": "block TTTM",
+ *      "office_unit_id": "block VP",
+ *      "category": {
+ *          "_id": "5d834606a2178d987367003a",
+ *          "create_uid": "b01e6241-0488-40b1-bc53-525050cd6d58",
+ *          "create_date": "2019-07-10T13:01:26.292Z",
+ *          "write_uid": "b01e6241-0488-40b1-bc53-525050cd6d58",
+ *          "write_date": "2019-09-03T02:09:51.852Z",
+ *          "company_id": "ROOT",
+ *          "status": true,
+ *          "delete_id": "2ea1eb33-0681-4ef5-a10b-151ef41c028d",
+ *          "category_name": "Dự án Khu đô thị",
+ *          "parent_id": "",
+ *          "category_code": "UPROJ",
+ *          "sequence": 4,
+ *          "keyworks": "",
+ *          "description": "",
+ *          "color": "#B7BAF3"
+ *      },
+ *      "investorDetail": [
+ *          {
+ *              "_id": "5db814ca5d0a533960ad5baa",
+ *              "create_uid": "5dbb9fbbebd384b5e4ecc368",
+ *              "create_date": "2020-01-16T09:04:52.071Z",
+ *              "write_uid": "5d679819325ab70ab0157ce5",
+ *              "write_date": "2019-10-29T10:14:41.057Z",
+ *              "company_id": "ROOT",
+ *              "status": true,
+ *              "delete_id": null,
+ *              "parent_id": null,
+ *              "tel": "02839913080",
+ *              "hotline": "",
+ *              "email": "",
+ *              "website": "www.hoangquan.com.vn",
+ *              "address1": "286-288 Huỳnh Văn Bánh, Phường 11, Quận Phú Nhuận, Thành phố Hồ Chí Minh",
+ *              "address": "286-288 Huỳnh Văn Bánh",
+ *              "company_name": "Công ty cổ phần Tư vấn – Thương mại – Dịch vụ địa ốc Hoàng Quân",
+ *              "display_name": "Hoang Quan Corp",
+ *              "founded_year": 2007,
+ *              "legal_representative": "Trương Anh Tuấn",
+ *              "company_type": "CTCP",
+ *              "tax_code": "0302087938",
+ *              "bank_account": "",
+ *              "bank_name": "",
+ *              "bank_branch": "",
+ *              "description": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<p style=\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\"><span style=\"color: #000000;\">Được th&agrave;nh lập v&agrave;o năm 2000, đến nay Ho&agrave;ng Qu&acirc;n Group đ&atilde; trở th&agrave;nh một trong những tập đo&agrave;n h&agrave;ng đầu Việt Nam về đầu tư kinh doanh bất động sản. Đặc biệt, Ho&agrave;ng Qu&acirc;n l&agrave; doanh nghiệp ti&ecirc;n phong đầu tư x&acirc;y dựng v&agrave; ph&aacute;t triển nh&agrave; ở x&atilde; hội tại khu vực ph&iacute;a Nam qua việc triển khai h&agrave;ng loạt c&aacute;c dự &aacute;n c&oacute; quy m&ocirc; lớn tại Th&agrave;nh phố Hồ Ch&iacute; Minh, Cần Thơ, Vĩnh Long, T&acirc;y Ninh, B&igrave;nh Thuận, Nha Trang,... cung cấp h&agrave;ng chục ng&agrave;n căn hộ đến cho người d&acirc;n.</span></p>\n<p style=\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\">&nbsp;</p>\n<p style=\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\"><span style=\"color: #000000;\">Ngay từ l&uacute;c đặt nền m&oacute;ng x&acirc;y dựng, Ho&agrave;ng Qu&acirc;n lu&ocirc;n hướng đến kh&aacute;ch h&agrave;ng với phương ch&acirc;m \"Tri thức &ndash; S&aacute;ng tạo &ndash; Ti&ecirc;n phong\", đem đến cho kh&aacute;ch h&agrave;ng những sản phẩm với gi&aacute; trị chuy&ecirc;n nghiệp, chất lượng v&agrave; dịch vụ tốt nhất. B&ecirc;n cạnh thế mạnh về lĩnh vực bất động sản, Ho&agrave;ng Qu&acirc;n c&ograve;n tăng cường đầu tư ph&aacute;t triển lĩnh vực gi&aacute;o dục, t&agrave;i ch&iacute;nh. Với những th&agrave;nh quả đ&atilde; đạt được trong những năm qua, Ho&agrave;ng Qu&acirc;n sẽ c&agrave;ng tự h&agrave;o v&agrave; vững bước hơn nữa với mục ti&ecirc;u trở th&agrave;nh tập đo&agrave;n &ldquo;Bất động sản &ndash; Gi&aacute;o dục &ndash; T&agrave;i ch&iacute;nh&rdquo; h&ugrave;ng mạnh n&ecirc;u cao tinh thần &ldquo;Vững bước ti&ecirc;n phong &ndash; N&acirc;ng tầm cao mới&rdquo;.</span></p>\n<p style=\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\">&nbsp;</p>\n<p style=\"margin: 0in 0in 0.0001pt; text-align: justify; text-indent: 22.9pt; line-height: normal; font-size: 11pt; font-family: Calibri, sans-serif;\"><span style=\"color: #000000;\">Từ khi th&agrave;nh lập, Ho&agrave;ng Qu&acirc;n đ&atilde; tự h&agrave;o l&agrave; c&ocirc;ng ty đầu ti&ecirc;n trong ng&agrave;nh địa ốc triển khai v&agrave; &aacute;p dụng Hệ thống Quản l&yacute; chất lượng ISO 9001:2008, v&agrave; cũng l&agrave; c&ocirc;ng ty đầu ti&ecirc;n tại Việt Nam x&acirc;y dựng quy tr&igrave;nh hoạt động bất động sản kh&eacute;p k&iacute;n từ m&ocirc;i giới, đến thiết kế, x&acirc;y dựng, thẩm định gi&aacute;, ph&aacute;p l&yacute;, đem lại hiệu quả kinh tế cao cho kh&aacute;ch h&agrave;ng. Hiện tại, hệ thống Ho&agrave;ng Qu&acirc;n c&oacute; 16 c&ocirc;ng ty th&agrave;nh vi&ecirc;n, 14 chi nh&aacute;nh &ndash; trung t&acirc;m giao dịch tr&ecirc;n khắp c&aacute;c tỉnh th&agrave;nh cả nước. Lượng kh&aacute;ch h&agrave;ng, đối t&aacute;c trong v&agrave; ngo&agrave;i nước tham gia g&oacute;p vốn đầu tư c&ugrave;ng Ho&agrave;ng Qu&acirc;n l&ecirc;n đến con số 10,000. Đội ngũ nh&acirc;n sự gần 1,000 nh&acirc;n vi&ecirc;n c&oacute; tr&igrave;nh độ chuy&ecirc;n m&ocirc;n cao (tiến sỹ, thạc sỹ, luật sư, chuy&ecirc;n vi&ecirc;n,...) mang phong c&aacute;ch phục vụ chuy&ecirc;n nghiệp.</span></p>\n</body>\n</html>",
+ *              "search": "CÔNG TY CỔ PHẦN TƯ VẤN - THƯƠNG MẠI - DỊCH VỤ ĐỊA ỐC HOÀNG QUÂN cong ty co phan tu van thuong mai dich vu dia oc hoang quan ĐỊA ỐC HOÀNG QUÂN dia oc hoang quan",
+ *              "points": null,
+ *              "icon": "",
+ *              "logo": "images/Company/0701%20-%200800/0736%20-%20Dia%20Oc%20Hoang%20Quan/logo_dia_oc_hoang_quan.png",
+ *              "code": "IV.0736",
+ *              "__v": 0,
+ *              "rating": [],
+ *              "rating_avg": 0,
+ *              "reaction": [],
+ *              "category_id": "5dafd01513818c28e0916318",
+ *              "banner": "",
+ *              "company_code": "0302087938",
+ *              "country_code": "(+84)",
+ *              "foreign_name": "",
+ *              "main_business": "Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê",
+ *              "operating_status": "Đang hoạt động",
+ *              "ward_id": "5dc237a6d508de3c4c58834a",
+ *              "type": "APPROVED",
+ *              "bank_id": null
+ *          }
+ *      ],
+ *      "landTypeDetail": {
+ *          "_id": "5dc38bf3b276eb1c887806a2",
+ *          "red": "255",
+ *          "green": "160",
+ *          "code": "ODT",
+ *          "name": "Đất ở tại đô thị",
+ *          "__v": 0,
+ *          "blue": "255"
+ *      },
+ *      "cons_statusDetail": {
+ *          "_id": "5db66cb206d6a109b1513792",
+ *          "create_uid": "5d679819325ab70ab0157ce5",
+ *          "create_date": "2019-10-04T01:12:09.606Z",
+ *          "write_uid": "5d679819325ab70ab0157ce5",
+ *          "write_date": "2019-10-04T01:12:09.606Z",
+ *          "company_id": "ROOT",
+ *          "status": true,
+ *          "delete_id": null,
+ *          "image_url": "",
+ *          "sequence": 0,
+ *          "parent_id": null,
+ *          "status_name": "Chưa rõ",
+ *          "fill": "#9c9c9c",
+ *          "marker_url": "Marker_chualam.svg",
+ *          "marker_hover_url": "marker_bds_ban_hover.svg",
+ *          "__v": 0,
+ *          "code": "PENDING"
+ *      },
+ *      "category_name": "Dự án Khu đô thị",
+ *      "create_user_role": [
+ *          "Asset Data Center"
+ *      ],
+ *      "wardDetail": {
+ *          "_id": "5dc237d1d508de3c4c58bb75",
+ *          "create_uid": "5d679819325ab70ab0157ce5",
+ *          "create_date": "2020-01-16T09:02:21.597Z",
+ *          "write_uid": "5d679819325ab70ab0157ce5",
+ *          "write_date": "2019-11-06T03:00:21.913Z",
+ *          "company_id": "ROOT",
+ *          "status": true,
+ *          "delete_id": null,
+ *          "reaction": [],
+ *          "code": "790101",
+ *          "name": "Xã An Phú Tây",
+ *          "type": "Xã",
+ *          "district_id": "5dc0d055ade2533578818bbb",
+ *          "points": {
+ *              "type": "Point",
+ *              "coordinates": [
+ *                  106.607859787,
+ *                  10.6875390948
+ *              ]
+ *          },
+ *          "__v": 0
+ *      },
+ *      "districtDetail": {
+ *          "_id": "5dc0d055ade2533578818bbb",
+ *          "create_uid": "5d679819325ab70ab0157ce5",
+ *          "create_date": "2020-01-16T09:03:10.342Z",
+ *          "write_uid": "5d679819325ab70ab0157ce5",
+ *          "write_date": "2019-11-05T01:28:42.327Z",
+ *          "company_id": "ROOT",
+ *          "status": true,
+ *          "delete_id": null,
+ *          "reaction": [],
+ *          "code": "7901",
+ *          "main_code": "01",
+ *          "name": "Huyện Bình Chánh",
+ *          "type": "Huyện",
+ *          "province_id": "5dc0cfc6bf871b3a3c6296bd",
+ *          "points": {
+ *              "type": "Point",
+ *              "coordinates": [
+ *                  106.575826672,
+ *                  10.7337045834
+ *              ]
+ *          },
+ *          "__v": 0
+ *      },
+ *      "provinceDetail": {
+ *          "_id": "5dc0cfc6bf871b3a3c6296bd",
+ *          "create_uid": "5d679819325ab70ab0157ce5",
+ *          "create_date": "2019-11-05T01:26:10.350Z",
+ *          "write_uid": "5d679819325ab70ab0157ce5",
+ *          "write_date": "2019-11-05T01:26:10.350Z",
+ *          "company_id": "ROOT",
+ *          "status": true,
+ *          "delete_id": null,
+ *          "reaction": [],
+ *          "country_id": "243",
+ *          "code": "79",
+ *          "name": "Thành phố Hồ Chí Minh",
+ *          "type": "Thành phố",
+ *          "__v": 0,
+ *          "points": {
+ *              "type": "Point",
+ *              "coordinates": [
+ *                  106.704809484,
+ *                  10.735237004
+ *              ]
+ *          }
+ *      },
+ *      "legal_info": {
+ *          "investment_approval": {
+ *              "status": "Có",
+ *              "file": "\\project\\5db80cfe44ab3a16f4215886\\5db80cfe44ab3a16f4215886-investment_approval_link-Approve Product Diagram (DATA).png-1581670326405.png"
+ *          },
+ *          "me_drawing_for_per_apartment": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "acceptance_of_fire_protection_system": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "acceptance_of_works": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "agreement_on_connection_of_electricity_and_water_works": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "agreement_on_traffic_connection": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "agreement_redbook_investor_and_buyer": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_backfill_design": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_basic_design": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_construction_design": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_engineering_design": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_fire_prevention_and_fighting": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "approval_of_infrastructure_design": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "bank_guarantee": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "basement_foundation_acceptance": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "certificate_of_business_registration": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "certificate_of_investment_registration": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "certification_of_investor": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "confirmation_of_infrastructure_completion": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "construction_permit": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "construction_survey_report": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "deal_of_construction_height": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "deal_of_embankment_edges": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "decisions_on_land_allocation_land_lease": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "economic_technical_report": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "environmental_impact_assessment_report": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "escrow_agreement": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "feasibility_study_repor": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "finish_dossiers": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "home_recieving_notice_to_buyers": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "house_numbering_decision": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "location_drawing": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "minutes_of_handover_of_houses_or_construction_to_buyers": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "notice_of_approval_of_sample_contract": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "notice_of_eligibility_for_capital_raising": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "notification_of_payment_of_land_use": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "notification_of_the_residences_eligibility_for_sale": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "notifications_of_request_for_registration_fee": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "redbook_buyer": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "redbook_land": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "strategic_environmental_assessment_report": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "status": true,
+ *          "_id": "5e465f840567113decd48019",
+ *          "__v": 0,
+ *          "detailed_planning_1_500": {
+ *              "status": "Chưa rõ",
+ *              "file": null
+ *          },
+ *          "create_date": "2020-03-20T09:26:37.073Z",
+ *          "write_date": "2020-03-20T09:26:37.073Z"
+ *      },
+ *      "cons_design_info": {
+ *          "_id": null,
+ *          "__v": 0,
+ *          "int_finishing": {
+ *              "wooden": {
+ *                  "bed": "Chưa có"
+ *              }
+ *          },
+ *          "create_date": "2020-03-20T09:26:37.076Z",
+ *          "write_date": "2020-03-20T09:26:37.076Z",
+ *          "detail": {}
+ *      }
+ *  }
+ * @apiError idProject The <code>idProject</code> was null.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 4XX Bad Request
+ *     {
+ *       "status": "false",
+ *       "error": "Thiếu thông tin"
+ *     }
+ * @apiError project The <code>project</code> was not found.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 4XX Not Found
+ *     {
+ *       "status": "false",
+ *       "error": "Không tìm thấy thông tin dự án"
+ *     }
+ * @apiError error The <code>server</code> was error.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 5XX Internal Server Error
+ *     {
+ *       "status": "false",
+ *       "error": "Server lỗi"
+ *     }
+ * 
+ */
+
